@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الحجوزات | سلطان البن</title>
+<link rel="icon" href="https://github.com/Teronex-tech/Soltan-Coffee/blob/main/logo.jpg?raw=true">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap');
+
+:root{
+  --void:        #170f09;
+  --espresso:    #241809;
+  --espresso-2:  #2c1d0e;
+  --card:        #291a0c;
+  --gold:        #d9ac54;
+  --gold-bright: #ffe1a0;
+  --gold-dim:    #a9834a;
+  --bronze-line: rgba(217,172,84,0.4);
+  --ivory:       #fbf3e3;
+  --parchment:   #d3c4a5;
+  --parchment-dim: #a9987e;
+  --good:#7fbf7f; --bad:#e07a6b;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0; background:var(--void); color:var(--parchment); font-family:'Tajawal',sans-serif;
+  direction:rtl; min-height:100vh;
+}
+a{ color:inherit; }
+h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
+.container{ max-width:1300px; margin:0 auto; padding:0 24px; }
+
+/* login screen */
+.login-wrap{
+  min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:22px;
+}
+.login-box{
+  background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; padding:36px; width:100%; max-width:360px;
+}
+.login-box h2{ text-align:center; margin-bottom:22px; font-size:24px; }
+.login-box input{
+  width:100%; padding:13px 14px; margin-bottom:14px; background:var(--espresso-2); border:1px solid var(--bronze-line);
+  border-radius:6px; color:var(--ivory); font-family:'Tajawal',sans-serif; font-size:14.5px; outline:none;
+}
+.login-box input:focus{ border-color:var(--gold); }
+.login-box button{
+  width:100%; padding:14px; border-radius:999px; border:none; cursor:pointer; font-weight:700; font-size:15px;
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold) 55%, var(--gold-dim)); color:#1c1206;
+}
+.login-error{ color:var(--bad); font-size:13px; text-align:center; margin-top:8px; display:none; }
+
+/* dashboard */
+.dash-header{
+  padding:22px 0; border-bottom:1px solid var(--bronze-line); display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:12px;
+}
+.dash-header .brand{ font-family:'Aref Ruqaa',serif; font-size:22px; color:var(--ivory); }
+.dash-actions{ display:flex; gap:12px; align-items:center; }
+.dash-actions button, .dash-actions a{
+  padding:10px 20px; border-radius:999px; border:1px solid var(--gold-dim); background:transparent; color:var(--gold-bright);
+  cursor:pointer; font-family:'Tajawal',sans-serif; font-size:13.5px; font-weight:700; text-decoration:none;
+}
+.dash-actions button:hover, .dash-actions a:hover{ background:rgba(217,172,84,.1); }
+
+.dash-body{ padding:30px 0 60px; }
+.stats-row{ display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+.stat-card{ background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; padding:18px 24px; min-width:150px; }
+.stat-card .num{ font-family:'Aref Ruqaa',serif; font-size:26px; color:var(--gold-bright); }
+.stat-card .label{ font-size:12.5px; color:var(--parchment-dim); }
+
+.table-wrap{ overflow-x:auto; background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; }
+table{ width:100%; border-collapse:collapse; min-width:1100px; }
+th, td{ padding:14px 16px; text-align:right; font-size:13.5px; border-bottom:1px solid var(--bronze-line); white-space:nowrap; }
+th{ color:var(--gold); font-weight:700; background:var(--espresso-2); position:sticky; top:0; }
+td{ color:var(--parchment); }
+tr:hover td{ background:rgba(217,172,84,.05); }
+td.items-cell{ white-space:normal; max-width:320px; font-size:12.5px; color:var(--parchment-dim); }
+a.proof-link{ color:var(--gold-bright); text-decoration:underline; }
+.empty-state{ text-align:center; padding:50px 0; color:var(--parchment-dim); }
+.loading{ text-align:center; padding:50px 0; color:var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <h2>لوحة حجوزات سلطان البن</h2>
+    <input type="text" id="loginUser" placeholder="اسم المستخدم">
+    <input type="password" id="loginPass" placeholder="كلمة المرور">
+    <button id="loginBtn">دخول</button>
+    <div class="login-error" id="loginError">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<div id="dashWrap" style="display:none;">
+  <div class="dash-header">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:12px;">
+      <div class="brand">لوحة الحجوزات — سلطان البن</div>
+      <div class="dash-actions">
+        <button id="refreshBtn">تحديث ⟳</button>
+        <a href="index.html">الموقع الرئيسي</a>
+        <button id="logoutBtn">خروج</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-body">
+    <div class="container">
+      <div class="stats-row" id="statsRow"></div>
+      <div class="table-wrap">
+        <table id="bookingsTable">
+          <thead>
+            <tr>
+              <th>التاريخ والوقت</th><th>رقم الطلب</th><th>الاسم</th><th>الهاتف 1</th><th>الهاتف 2</th>
+              <th>المحافظة</th><th>العنوان</th><th>الأصناف</th><th>الفرعي</th><th>الشحن</th><th>الإجمالي</th>
+              <th>طريقة الدفع</th><th>إثبات الدفع</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsBody">
+            <tr><td colspan="13" class="loading">جاري تحميل الحجوزات...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9Tdqo3QmCDyOxWdKWbQCtxrk5RuvFLJ6FyjCWNOanE_tztfCcsfxC7GlQuRVRj4hTlQ/exec";
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "coffee2026";
+
+const loginWrap = document.getElementById('loginWrap');
+const dashWrap = document.getElementById('dashWrap');
+
+function tryLogin(){
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value.trim();
+  if (u === ADMIN_USER && p === ADMIN_PASS){
+    sessionStorage.setItem('sb_admin_ok', '1');
+    loginWrap.style.display = 'none';
+    dashWrap.style.display = 'block';
+    loadBookings();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+document.getElementById('loginBtn').addEventListener('click', tryLogin);
+document.getElementById('loginPass').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('sb_admin_ok');
+  location.reload();
+});
+document.getElementById('refreshBtn').addEventListener('click', loadBookings);
+
+async function loadBookings(){
+  const body = document.getElementById('bookingsBody');
+  body.innerHTML = '<tr><td colspan="13" class="loading">جاري تحميل الحجوزات...</td></tr>';
+
+  if (SCRIPT_URL.indexOf('PASTE_YOUR') === 0){
+    body.innerHTML = '<tr><td colspan="13" class="empty-state">⚠ لم يتم ربط اللوحة بجوجل شيت بعد. راجع ملف google-apps-script.gs ثم ضع الرابط في هذا الملف.</td></tr>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${SCRIPT_URL}?action=list&pass=${encodeURIComponent(ADMIN_PASS)}`);
+    const data = await res.json();
+    if (data.status !== 'ok') throw new Error(data.message || 'خطأ غير معروف');
+    renderRows(data.rows);
+    renderStats(data.rows);
+  } catch (err){
+    body.innerHTML = `<tr><td colspan="13" class="empty-state">تعذّر تحميل البيانات: ${err.message}</td></tr>`;
+  }
+}
+
+function renderStats(rows){
+  const wrap = document.getElementById('statsRow');
+  const totalOrders = rows.length;
+  const totalRevenue = rows.reduce((s, r) => s + (Number(r['الإجمالي الكلي']) || 0), 0);
+  const today = new Date().toDateString();
+  const todayOrders = rows.filter(r => new Date(r['التاريخ والوقت']).toDateString() === today).length;
+
+  wrap.innerHTML = `
+    <div class="stat-card"><div class="num">${totalOrders}</div><div class="label">إجمالي الحجوزات</div></div>
+    <div class="stat-card"><div class="num">${todayOrders}</div><div class="label">حجوزات اليوم</div></div>
+    <div class="stat-card"><div class="num">${totalRevenue.toLocaleString('ar-EG')} ج.م</div><div class="label">إجمالي قيمة الحجوزات</div></div>
+  `;
+}
+
+function renderRows(rows){
+  const body = document.getElementById('bookingsBody');
+  if (!rows.length){
+    body.innerHTML = '<tr><td colspan="13" class="empty-state">لا توجد حجوزات حتى الآن</td></tr>';
+    return;
+  }
+  body.innerHTML = rows.map(r => {
+    const date = r['التاريخ والوقت'] ? new Date(r['التاريخ والوقت']).toLocaleString('ar-EG') : '';
+    const proof = r['رابط إثبات الدفع'] ? `<a class="proof-link" href="${r['رابط إثبات الدفع']}" target="_blank">عرض الصورة</a>` : '—';
+    return `<tr>
+      <td>${date}</td>
+      <td>${r['رقم الطلب'] || ''}</td>
+      <td>${r['الاسم'] || ''}</td>
+      <td>${r['رقم الهاتف 1'] || ''}</td>
+      <td>${r['رقم الهاتف 2'] || ''}</td>
+      <td>${r['المحافظة'] || ''}</td>
+      <td>${r['العنوان'] || ''}</td>
+      <td class="items-cell">${r['الأصناف'] || ''}</td>
+      <td>${r['الإجمالي الفرعي'] || 0} ج.م</td>
+      <td>${r['الشحن'] || 0} ج.م</td>
+      <td>${r['الإجمالي الكلي'] || 0} ج.م</td>
+      <td>${r['طريقة الدفع'] || ''}</td>
+      <td>${proof}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* keep session across refresh */
+if (sessionStorage.getItem('sb_admin_ok') === '1'){
+  loginWrap.style.display = 'none';
+  dashWrap.style.display = 'block';
+  loadBookings();
+}
+</script>
+</body>
+</html>
