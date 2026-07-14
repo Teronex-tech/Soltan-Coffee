@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>لوحة الحجوزات | سلطان البن</title>
-<link rel="icon" href="https://github.com/Teronex-tech/Soltan-Coffee/blob/main/logo.jpg?raw=true">
+<link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+<link rel="icon" href="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap');
 
@@ -20,55 +21,23 @@
   --ivory:       #fbf3e3;
   --parchment:   #d3c4a5;
   --parchment-dim: #a9987e;
-  --good:#7fbf7f; --bad:#e07a6b;
+  --good:#7fbf7f; --bad:#e07a6b; --info:#7fb8e0; --amber:#e0b97f;
 }
 *,*::before,*::after{ box-sizing:border-box; }
-html, body {
-  margin:0;
-  padding:0;
-  height:100%;
-}
+html, body { margin:0; padding:0; height:100%; }
 body{
-  background:var(--void);
-  color:var(--parchment);
-  font-family:'Tajawal',sans-serif;
-  direction:rtl;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
+  background:var(--void); color:var(--parchment); font-family:'Tajawal',sans-serif;
+  direction:rtl; min-height:100vh; display:flex; flex-direction:column;
 }
 a{ color:inherit; }
 h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
 .container{ max-width:1300px; margin:0 auto; padding:0 24px; width:100%; }
 
-/* ===========================================================
-   الصفحة الرئيسية (flex column) لدفع الفوتر للأسفل
-=========================================================== */
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  flex: 1;
-}
+.page-wrapper{ display:flex; flex-direction:column; min-height:100vh; flex:1; }
 
 /* login screen */
-.login-wrap{
-  flex:1;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:22px;
-}
-.login-box{
-  background:var(--card);
-  border:1px solid var(--bronze-line);
-  border-radius:8px;
-  padding:36px;
-  width:100%;
-  max-width:360px;
-}
+.login-wrap{ flex:1; min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:22px; }
+.login-box{ background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; padding:36px; width:100%; max-width:360px; }
 .login-box h2{ text-align:center; margin-bottom:22px; font-size:24px; }
 .login-box input{
   width:100%; padding:13px 14px; margin-bottom:14px; background:var(--espresso-2); border:1px solid var(--bronze-line);
@@ -82,20 +51,10 @@ h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
 .login-error{ color:var(--bad); font-size:13px; text-align:center; margin-top:8px; display:none; }
 
 /* dashboard */
-#dashWrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
+#dashWrap{ flex:1; display:flex; flex-direction:column; }
 .dash-header{
-  padding:22px 0;
-  border-bottom:1px solid var(--bronze-line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-  flex-shrink:0;
+  padding:22px 0; border-bottom:1px solid var(--bronze-line); display:flex; justify-content:space-between;
+  align-items:center; flex-wrap:wrap; gap:12px; flex-shrink:0;
 }
 .dash-header .brand{ font-family:'Aref Ruqaa',serif; font-size:22px; color:var(--ivory); }
 .dash-actions{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
@@ -105,172 +64,125 @@ h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
 }
 .dash-actions button:hover, .dash-actions a:hover{ background:rgba(217,172,84,.1); }
 
-.dash-body{
-  padding:30px 0 40px;
-  flex: 1;
-}
+.dash-body{ padding:30px 0 40px; flex:1; }
+
 .stats-row{ display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
-.stat-card{ background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; padding:18px 24px; min-width:150px; }
-.stat-card .num{ font-family:'Aref Ruqaa',serif; font-size:26px; color:var(--gold-bright); }
-.stat-card .label{ font-size:12.5px; color:var(--parchment-dim); }
+.stat-card{ background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; padding:16px 22px; min-width:140px; }
+.stat-card .num{ font-family:'Aref Ruqaa',serif; font-size:24px; color:var(--gold-bright); }
+.stat-card .label{ font-size:12px; color:var(--parchment-dim); }
 
-.table-wrap{ overflow-x:auto; background:var(--card); border:1px solid var(--bronze-line); border-radius:8px; }
-table{ width:100%; border-collapse:collapse; min-width:1100px; }
-th, td{ padding:14px 16px; text-align:right; font-size:13.5px; border-bottom:1px solid var(--bronze-line); white-space:nowrap; }
-th{ color:var(--gold); font-weight:700; background:var(--espresso-2); position:sticky; top:0; }
-td{ color:var(--parchment); }
-tr:hover td{ background:rgba(217,172,84,.05); }
-td.items-cell{ white-space:normal; max-width:320px; font-size:12.5px; color:var(--parchment-dim); }
-a.proof-link{ color:var(--gold-bright); text-decoration:underline; }
-.empty-state{ text-align:center; padding:50px 0; color:var(--parchment-dim); }
-.loading{ text-align:center; padding:50px 0; color:var(--gold); }
-
-/* ===========================================================
-   TERONEX Badge — مستطيل مميز بدون حواف مع أنيميشن
-=========================================================== */
-
-.teronex-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 8px 20px 8px 16px;
-  background: linear-gradient(135deg, #1a110c, #2c1d0e);
-  border: 1px solid var(--gold-dim);
-  border-radius: 0;
-  color: var(--gold-bright);
-  font-family: 'Tajawal', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.22, 0.85, 0.32, 1);
-  box-shadow: 0 0 20px rgba(201, 162, 75, 0.08);
-  overflow: hidden;
-  cursor: pointer;
+/* toolbar: search + status filters */
+.toolbar{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:16px; }
+.search-box{
+  flex:1; min-width:220px; display:flex; align-items:center; gap:10px; background:var(--card);
+  border:1px solid var(--bronze-line); border-radius:8px; padding:10px 16px;
 }
-
-.teronex-badge-inner {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  z-index: 2;
+.search-box input{
+  flex:1; background:transparent; border:none; outline:none; color:var(--ivory); font-family:'Tajawal',sans-serif; font-size:14px;
 }
-
-.teronex-logo {
-  width: 22px;
-  height: 22px;
-  stroke: var(--gold);
-  transition: transform 0.6s cubic-bezier(0.22, 0.85, 0.32, 1);
+.search-box input::placeholder{ color:var(--parchment-dim); }
+.status-filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+.status-chip{
+  padding:8px 16px; border-radius:999px; border:1px solid var(--bronze-line); background:var(--card);
+  color:var(--parchment); font-size:12.5px; font-weight:700; cursor:pointer; transition:all .25s ease; white-space:nowrap;
 }
+.status-chip.active, .status-chip:hover{ border-color:var(--gold); background:rgba(217,172,84,.12); color:var(--gold-bright); }
 
-.teronex-text {
-  color: var(--ivory);
-  font-weight: 900;
-  font-size: 14px;
-  background: linear-gradient(90deg, var(--gold-bright), var(--gold), var(--gold-dim));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 0.12em;
-  transition: transform 0.4s ease;
-}
+.count-hint{ font-size:12.5px; color:var(--parchment-dim); margin-bottom:16px; }
 
-.teronex-shine {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(217, 172, 84, 0.12) 40%,
-    rgba(217, 172, 84, 0.25) 50%,
-    rgba(217, 172, 84, 0.12) 60%,
-    transparent 80%
-  );
-  background-size: 200% 100%;
-  animation: teronexShine 4.5s ease-in-out infinite;
-  opacity: 0;
-  transition: opacity 0.6s ease;
+/* status badges */
+.status-badge{
+  display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:999px; font-size:12.5px; font-weight:700;
+  white-space:nowrap;
 }
+.status-badge::before{ content:''; width:7px; height:7px; border-radius:50%; background:currentColor; }
+.s-pending{ background:rgba(217,172,84,.15); color:var(--gold-bright); }
+.s-confirmed{ background:rgba(127,184,224,.15); color:var(--info); }
+.s-preparing{ background:rgba(224,185,127,.15); color:var(--amber); }
+.s-shipped{ background:rgba(127,184,224,.15); color:#a9d4f0; }
+.s-delivered{ background:rgba(127,191,127,.15); color:var(--good); }
+.s-cancelled{ background:rgba(224,122,107,.15); color:var(--bad); }
 
-.teronex-badge:hover .teronex-shine {
-  opacity: 1;
-}
+.empty-state{ text-align:center; padding:60px 0; color:var(--parchment-dim); }
+.loading{ text-align:center; padding:60px 0; color:var(--gold); }
 
-@keyframes teronexShine {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* ============ CARD LAYOUT (بلوك لكل حجز بدل سطر) ============ */
+.bookings-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap:20px;
 }
+.booking-card{
+  background:var(--card); border:1px solid var(--bronze-line); border-radius:10px; padding:22px;
+  display:flex; flex-direction:column; gap:16px;
+}
+.bc-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; }
+.bc-head .order-id{ font-family:'Aref Ruqaa',serif; font-size:19px; color:var(--ivory); }
+.bc-head .order-date{ font-size:12px; color:var(--parchment-dim); margin-top:2px; }
 
-.teronex-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(201, 162, 75, 0.25);
-  border-color: var(--gold);
-}
+.bc-section{ border-top:1px solid var(--bronze-line); padding-top:14px; }
+.bc-section:first-of-type{ border-top:none; padding-top:0; }
+.bc-label{ font-size:11px; color:var(--parchment-dim); margin-bottom:4px; text-transform:uppercase; letter-spacing:.03em; }
+.bc-value{ font-size:14.5px; color:var(--ivory); font-weight:600; line-height:1.6; }
 
-.teronex-badge:hover .teronex-logo {
-  transform: rotate(15deg) scale(1.1);
-}
+.bc-grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 
-.teronex-badge:hover .teronex-text {
-  transform: scale(1.02);
-}
+.bc-items{ background:var(--espresso-2); border:1px solid var(--bronze-line); border-radius:8px; padding:12px 14px; font-size:13px; line-height:2; color:var(--parchment); }
 
-.teronex-badge::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  z-index: 0;
-  background: linear-gradient(135deg, var(--gold-dim), transparent, var(--gold-dim));
-  opacity: 0.2;
-  animation: teronexPulse 3s ease-in-out infinite;
-}
+.bc-totals{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:13.5px; }
+.bc-totals .grand{ color:var(--gold-bright); font-weight:700; font-size:16px; }
 
-@keyframes teronexPulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.35; }
+.bc-payment{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.proof-link-btn{
+  padding:8px 16px; border-radius:999px; border:1px solid var(--gold-dim); background:transparent; color:var(--gold-bright);
+  font-size:12.5px; font-weight:700; text-decoration:none; white-space:nowrap;
 }
+.proof-link-btn:hover{ background:rgba(217,172,84,.1); }
 
-@media (max-width: 640px) {
-  .teronex-badge {
-    padding: 6px 14px 6px 12px;
-    font-size: 11px;
-  }
-  .teronex-logo {
-    width: 18px;
-    height: 18px;
-  }
-  .teronex-text {
-    font-size: 12px;
-  }
+.bc-status-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.bc-status-row select{
+  flex:1; min-width:160px; padding:11px 14px; border-radius:8px; background:var(--espresso-2); border:1px solid var(--bronze-line);
+  color:var(--ivory); font-family:'Tajawal',sans-serif; font-size:13.5px; outline:none;
 }
+.bc-status-row select:focus{ border-color:var(--gold); }
+.save-hint{ font-size:12px; color:var(--good); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
+.save-hint.show{ opacity:1; }
 
-/* ---------- footer ---------- */
-footer {
-  flex-shrink: 0;
-  padding: 30px 0 20px;
-  border-top: 1px solid var(--bronze-line);
-  margin-top: auto;
-  background: var(--void);
+/* teronex + footer */
+.teronex-badge{
+  display:inline-flex; align-items:center; justify-content:center; position:relative; padding:8px 20px 8px 16px;
+  background:linear-gradient(135deg,#1a110c,#2c1d0e); border:1px solid var(--gold-dim); color:var(--gold-bright);
+  font-family:'Tajawal',sans-serif; font-weight:700; font-size:13px; letter-spacing:.08em; text-decoration:none;
+  transition:all .4s cubic-bezier(.22,.85,.32,1); box-shadow:0 0 20px rgba(201,162,75,.08); overflow:hidden; cursor:pointer;
 }
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 12.5px;
-  color: var(--parchment-dim);
-  align-items: center;
+.teronex-badge-inner{ display:flex; align-items:center; gap:10px; position:relative; z-index:2; }
+.teronex-logo{ width:22px; height:22px; stroke:var(--gold); transition:transform .6s cubic-bezier(.22,.85,.32,1); }
+.teronex-text{
+  color:var(--ivory); font-weight:900; font-size:14px;
+  background:linear-gradient(90deg,var(--gold-bright),var(--gold),var(--gold-dim));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:.12em;
 }
+.teronex-shine{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(120deg, transparent 20%, rgba(217,172,84,.12) 40%, rgba(217,172,84,.25) 50%, rgba(217,172,84,.12) 60%, transparent 80%);
+  background-size:200% 100%; animation:teronexShine 4.5s ease-in-out infinite; opacity:0; transition:opacity .6s ease;
+}
+.teronex-badge:hover .teronex-shine{ opacity:1; }
+@keyframes teronexShine{ 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+.teronex-badge:hover{ transform:translateY(-2px); box-shadow:0 8px 30px rgba(201,162,75,.25); border-color:var(--gold); }
+.teronex-badge:hover .teronex-logo{ transform:rotate(15deg) scale(1.1); }
+@media (max-width:640px){ .teronex-badge{ padding:6px 14px 6px 12px; font-size:11px; } .teronex-logo{ width:18px; height:18px; } .teronex-text{ font-size:12px; } }
 
+footer{ flex-shrink:0; padding:30px 0 20px; border-top:1px solid var(--bronze-line); margin-top:auto; background:var(--void); }
+.footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--parchment-dim); align-items:center; }
+
+@media (max-width:480px){
+  .bc-grid-2{ grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
 
-<!-- ====== WRAPPER ====== -->
 <div class="page-wrapper">
 
   <!-- ===================== LOGIN ===================== -->
@@ -300,19 +212,19 @@ footer {
     <div class="dash-body">
       <div class="container">
         <div class="stats-row" id="statsRow"></div>
-        <div class="table-wrap">
-          <table id="bookingsTable">
-            <thead>
-              <tr>
-                <th>التاريخ والوقت</th><th>رقم الطلب</th><th>الاسم</th><th>الهاتف 1</th><th>الهاتف 2</th>
-                <th>المحافظة</th><th>العنوان</th><th>الأصناف</th><th>الفرعي</th><th>الشحن</th><th>الإجمالي</th>
-                <th>طريقة الدفع</th><th>إثبات الدفع</th>
-              </tr>
-            </thead>
-            <tbody id="bookingsBody">
-              <tr><td colspan="13" class="loading">جاري تحميل الحجوزات...</td></tr>
-            </tbody>
-          </table>
+
+        <div class="toolbar">
+          <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="ابحث بالاسم، رقم الهاتف، المحافظة، أو رقم الطلب...">
+          </div>
+        </div>
+        <div class="status-filters" id="statusFilters"></div>
+
+        <div class="count-hint" id="countHint"></div>
+
+        <div id="bookingsWrap">
+          <div class="loading">جاري تحميل الحجوزات...</div>
         </div>
       </div>
     </div>
@@ -323,7 +235,6 @@ footer {
     <div class="container">
       <div class="footer-bottom">
         <span>© 2026 جميع الحقوق محفوظة لسلطان البن</span>
-        <!-- ====== TERONEX BADGE ====== -->
         <a href="https://teronex-tech.github.io/Teronex/" target="_blank" rel="noopener" class="teronex-badge" aria-label="Teronex – تطوير و تصميم">
           <span class="teronex-badge-inner">
             <svg class="teronex-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -339,15 +250,32 @@ footer {
   </footer>
 
 </div>
-<!-- ====== END WRAPPER ====== -->
 
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9Tdqo3QmCDyOxWdKWbQCtxrk5RuvFLJ6FyjCWNOanE_tztfCcsfxC7GlQuRVRj4hTlQ/exec";
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "coffee2026";
 
+const STATUS_KEY = 'الحالة';
+const STATUSES = [
+  { value:'قيد المراجعة', cls:'s-pending' },
+  { value:'تم التأكيد',   cls:'s-confirmed' },
+  { value:'جاري التحضير', cls:'s-preparing' },
+  { value:'تم الشحن',     cls:'s-shipped' },
+  { value:'تم التسليم',   cls:'s-delivered' },
+  { value:'ملغي',         cls:'s-cancelled' },
+];
+function statusClass(val){
+  const s = STATUSES.find(s => s.value === val);
+  return s ? s.cls : 's-pending';
+}
+
 const loginWrap = document.getElementById('loginWrap');
 const dashWrap = document.getElementById('dashWrap');
+
+let allRows = [];
+let activeStatusFilter = 'الكل';
+let searchTerm = '';
 
 function tryLogin(){
   const u = document.getElementById('loginUser').value.trim();
@@ -370,23 +298,25 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 });
 document.getElementById('refreshBtn').addEventListener('click', loadBookings);
 
-async function loadBookings(){
-  const body = document.getElementById('bookingsBody');
-  body.innerHTML = '<tr><td colspan="13" class="loading">جاري تحميل الحجوزات...</td></tr>';
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim().toLowerCase();
+  applyFilters();
+});
 
-  if (SCRIPT_URL.indexOf('PASTE_YOUR') === 0){
-    body.innerHTML = '<tr><td colspan="13" class="empty-state">⚠ لم يتم ربط اللوحة بجوجل شيت بعد. راجع ملف google-apps-script.gs ثم ضع الرابط في هذا الملف.</td></tr>';
-    return;
-  }
+async function loadBookings(){
+  const wrap = document.getElementById('bookingsWrap');
+  wrap.innerHTML = '<div class="loading">جاري تحميل الحجوزات...</div>';
 
   try {
     const res = await fetch(`${SCRIPT_URL}?action=list&pass=${encodeURIComponent(ADMIN_PASS)}`);
     const data = await res.json();
     if (data.status !== 'ok') throw new Error(data.message || 'خطأ غير معروف');
-    renderRows(data.rows);
-    renderStats(data.rows);
+    allRows = data.rows.map(r => { if (!r[STATUS_KEY]) r[STATUS_KEY] = 'قيد المراجعة'; return r; });
+    renderStats(allRows);
+    renderStatusFilters();
+    applyFilters();
   } catch (err){
-    body.innerHTML = `<tr><td colspan="13" class="empty-state">تعذّر تحميل البيانات: ${err.message}</td></tr>`;
+    wrap.innerHTML = `<div class="empty-state">تعذّر تحميل البيانات: ${err.message}</div>`;
   }
 }
 
@@ -396,39 +326,179 @@ function renderStats(rows){
   const totalRevenue = rows.reduce((s, r) => s + (Number(r['الإجمالي الكلي']) || 0), 0);
   const today = new Date().toDateString();
   const todayOrders = rows.filter(r => new Date(r['التاريخ والوقت']).toDateString() === today).length;
+  const pendingOrders = rows.filter(r => r[STATUS_KEY] === 'قيد المراجعة').length;
 
   wrap.innerHTML = `
     <div class="stat-card"><div class="num">${totalOrders}</div><div class="label">إجمالي الحجوزات</div></div>
     <div class="stat-card"><div class="num">${todayOrders}</div><div class="label">حجوزات اليوم</div></div>
-    <div class="stat-card"><div class="num">${totalRevenue.toLocaleString('ar-EG')} ج.م</div><div class="label">إجمالي قيمة الحجوزات</div></div>
+    <div class="stat-card"><div class="num">${pendingOrders}</div><div class="label">قيد المراجعة</div></div>
+    <div class="stat-card"><div class="num">${totalRevenue.toLocaleString('ar-EG')} ج.م</div><div class="label">إجمالي القيمة</div></div>
   `;
 }
 
-function renderRows(rows){
-  const body = document.getElementById('bookingsBody');
+function renderStatusFilters(){
+  const wrap = document.getElementById('statusFilters');
+  const counts = { 'الكل': allRows.length };
+  STATUSES.forEach(s => counts[s.value] = allRows.filter(r => r[STATUS_KEY] === s.value).length);
+
+  const chips = ['الكل', ...STATUSES.map(s => s.value)];
+  wrap.innerHTML = chips.map(label => `
+    <button type="button" class="status-chip ${label === activeStatusFilter ? 'active' : ''}" data-status="${label}">
+      ${label} (${counts[label] || 0})
+    </button>
+  `).join('');
+
+  wrap.querySelectorAll('.status-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeStatusFilter = chip.dataset.status;
+      renderStatusFilters();
+      applyFilters();
+    });
+  });
+}
+
+function applyFilters(){
+  let rows = allRows;
+  if (activeStatusFilter !== 'الكل'){
+    rows = rows.filter(r => r[STATUS_KEY] === activeStatusFilter);
+  }
+  if (searchTerm){
+    rows = rows.filter(r => {
+      const hay = [r['الاسم'], r['رقم الهاتف 1'], r['رقم الهاتف 2'], r['المحافظة'], r['رقم الطلب']]
+        .join(' ').toLowerCase();
+      return hay.includes(searchTerm);
+    });
+  }
+  document.getElementById('countHint').textContent = `عرض ${rows.length} من ${allRows.length} حجز`;
+  renderCards(rows);
+}
+
+function renderCards(rows){
+  const wrap = document.getElementById('bookingsWrap');
   if (!rows.length){
-    body.innerHTML = '<tr><td colspan="13" class="empty-state">لا توجد حجوزات حتى الآن</td></tr>';
+    wrap.innerHTML = '<div class="empty-state">لا توجد حجوزات مطابقة</div>';
     return;
   }
-  body.innerHTML = rows.map(r => {
-    const date = r['التاريخ والوقت'] ? new Date(r['التاريخ والوقت']).toLocaleString('ar-EG') : '';
-    const proof = r['رابط إثبات الدفع'] ? `<a class="proof-link" href="${r['رابط إثبات الدفع']}" target="_blank">عرض الصورة</a>` : '—';
-    return `<tr>
-      <td>${date}</td>
-      <td>${r['رقم الطلب'] || ''}</td>
-      <td>${r['الاسم'] || ''}</td>
-      <td>${r['رقم الهاتف 1'] || ''}</td>
-      <td>${r['رقم الهاتف 2'] || ''}</td>
-      <td>${r['المحافظة'] || ''}</td>
-      <td>${r['العنوان'] || ''}</td>
-      <td class="items-cell">${r['الأصناف'] || ''}</td>
-      <td>${r['الإجمالي الفرعي'] || 0} ج.م</td>
-      <td>${r['الشحن'] || 0} ج.م</td>
-      <td>${r['الإجمالي الكلي'] || 0} ج.م</td>
-      <td>${r['طريقة الدفع'] || ''}</td>
-      <td>${proof}</td>
-    </tr>`;
-  }).join('');
+
+  wrap.innerHTML = `<div class="bookings-grid">${rows.map(cardHtml).join('')}</div>`;
+
+  wrap.querySelectorAll('.bc-status-select').forEach(sel => {
+    sel.addEventListener('change', (e) => updateStatus(e.target.dataset.order, e.target.value, e.target));
+  });
+}
+
+function cardHtml(r){
+  const date = r['التاريخ والوقت'] ? new Date(r['التاريخ والوقت']).toLocaleString('ar-EG') : '';
+  const status = r[STATUS_KEY] || 'قيد المراجعة';
+  const orderId = r['رقم الطلب'] || '';
+  const itemsHtml = (r['الأصناف'] || '').split(' | ').filter(Boolean).map(i => `<div>• ${i}</div>`).join('') || 'لا توجد أصناف مسجّلة';
+  const proofHtml = r['رابط إثبات الدفع']
+    ? `<a class="proof-link-btn" href="${r['رابط إثبات الدفع']}" target="_blank">عرض إثبات الدفع 🧾</a>`
+    : `<span style="font-size:12.5px; color:var(--parchment-dim);">لا توجد صورة إثبات</span>`;
+
+  return `
+    <div class="booking-card">
+      <div class="bc-head">
+        <div>
+          <div class="order-id">${orderId}</div>
+          <div class="order-date">${date}</div>
+        </div>
+        <span class="status-badge ${statusClass(status)}">${status}</span>
+      </div>
+
+      <div class="bc-section">
+        <div class="bc-grid-2">
+          <div>
+            <div class="bc-label">الاسم</div>
+            <div class="bc-value">${r['الاسم'] || '—'}</div>
+          </div>
+          <div>
+            <div class="bc-label">المحافظة</div>
+            <div class="bc-value">${r['المحافظة'] || '—'}</div>
+          </div>
+          <div>
+            <div class="bc-label">رقم الهاتف 1</div>
+            <div class="bc-value">${r['رقم الهاتف 1'] || '—'}</div>
+          </div>
+          <div>
+            <div class="bc-label">رقم الهاتف 2</div>
+            <div class="bc-value">${r['رقم الهاتف 2'] || '—'}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bc-section">
+        <div class="bc-label">العنوان</div>
+        <div class="bc-value">${r['العنوان'] || '—'}</div>
+      </div>
+
+      <div class="bc-section">
+        <div class="bc-label">الأصناف</div>
+        <div class="bc-items">${itemsHtml}</div>
+      </div>
+
+      <div class="bc-section">
+        <div class="bc-totals">
+          <span>الفرعي: ${r['الإجمالي الفرعي'] || 0} ج.م</span>
+          <span>الشحن: ${r['الشحن'] || 0} ج.م</span>
+          <span class="grand">الإجمالي: ${r['الإجمالي الكلي'] || 0} ج.م</span>
+        </div>
+      </div>
+
+      <div class="bc-section">
+        <div class="bc-payment">
+          <div>
+            <div class="bc-label">طريقة الدفع</div>
+            <div class="bc-value">${r['طريقة الدفع'] || '—'}</div>
+          </div>
+          ${proofHtml}
+        </div>
+      </div>
+
+      <div class="bc-section">
+        <div class="bc-label">حالة الطلب</div>
+        <div class="bc-status-row">
+          <select class="bc-status-select" data-order="${orderId}">
+            ${STATUSES.map(s => `<option value="${s.value}" ${s.value === status ? 'selected' : ''}>${s.value}</option>`).join('')}
+          </select>
+          <span class="save-hint" data-hint-for="${orderId}">✔ تم الحفظ</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function updateStatus(orderId, newStatus, selectEl){
+  selectEl.disabled = true;
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action:'updateStatus', orderId, status: newStatus, pass: ADMIN_PASS })
+    });
+    const data = await res.json();
+    if (data.status === 'ok'){
+      const row = allRows.find(r => r['رقم الطلب'] === orderId);
+      if (row) row[STATUS_KEY] = newStatus;
+
+      const card = selectEl.closest('.booking-card');
+      const badge = card.querySelector('.status-badge');
+      badge.textContent = newStatus;
+      badge.className = 'status-badge ' + statusClass(newStatus);
+
+      const hint = card.querySelector('.save-hint');
+      hint.classList.add('show');
+      setTimeout(() => hint.classList.remove('show'), 2000);
+
+      renderStats(allRows);
+      renderStatusFilters();
+    } else {
+      alert('تعذّر تحديث الحالة: ' + (data.message || ''));
+    }
+  } catch (err){
+    alert('تعذّر الاتصال بالخادم لتحديث الحالة.');
+  }
+  selectEl.disabled = false;
 }
 
 /* keep session across refresh */
