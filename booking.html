@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>احجز طلبك | سلطان البن</title>
 <meta name="description" content="احجز طلبك من سلطان البن — اختر صنفك، حدد الكمية، وأتمم الحجز بسهولة.">
-<link rel="icon" href="https://github.com/Teronex-tech/Soltan-Coffee/blob/main/logo.jpg?raw=true">
+<link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+<link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+<link rel="icon" href="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg">
 <style>
 /* ===========================================================
    سلطان البن — Booking Page
@@ -381,7 +383,7 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
 <!-- ===================== HEADER ===================== -->
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="brand"><img src="https://github.com/Teronex-tech/Soltan-Coffee/blob/main/logo.jpg?raw=true" alt="سلطان البن">سلطان البن</a>
+    <a href="index.html" class="brand"><img src="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg" alt="سلطان البن" width="36" height="36" loading="eager" decoding="async">سلطان البن</a>
     <nav class="nav-links" id="navLinks">
       <a href="index.html">الرئيسية</a>
       <a href="index.html#product">المنتج</a>
@@ -413,7 +415,7 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
     <div class="product-pills" id="productPills"></div>
 
     <div class="product-preview" id="productPreview" style="display:none;">
-      <img id="previewImg" src="" alt="">
+      <img id="previewImg" src="" alt="" loading="eager" decoding="async">
       <div>
         <h4 id="previewName"></h4>
         <div class="price-line" id="previewPrice"></div>
@@ -540,21 +542,21 @@ const CATEGORIES = [
 ];
 
 const PRODUCTS = [
-  { id:'light-plain',  name:'فاتح سادة',            price:65, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%81%D8%A7%D8%AA%D8%AD%20%D8%B3%D8%A7%D8%AF%D8%A9.png?raw=true',  cat:'coffee', group:'plain' },
-  { id:'light-spiced', name:'فاتح محوج',            price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%81%D8%A7%D8%AA%D8%AC%20%D9%85%D8%AD%D9%88%D8%AC.png?raw=true', cat:'coffee' },
-  { id:'medium-plain', name:'وسط سادة',             price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%88%D8%B3%D8%B7%20%D8%B3%D8%A7%D8%AF%D8%A9.png?raw=true', cat:'coffee', group:'plain' },
-  { id:'medium-spiced',name:'وسط محوج',             price:80, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%88%D8%B3%D8%B7%20%D9%85%D8%AD%D9%88%D8%AC.png?raw=true',cat:'coffee' },
-  { id:'dark-plain',   name:'غامق سادة',            price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D8%BA%D8%A7%D9%85%D9%82%20%D8%B3%D8%A7%D8%AF%D8%A9.png?raw=true',   cat:'coffee', group:'plain' },
-  { id:'dark-spiced',  name:'غامق محوج',            price:85, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D8%BA%D8%A7%D9%85%D9%82%20%D9%85%D8%AD%D9%88%D8%AC.png?raw=true',  cat:'coffee' },
-  { id:'light-plain-special',  name:'فاتح سادة اسبيشيال',  price:80, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%81%D8%A7%D8%AA%D8%AD%20%D8%B3%D8%A7%D8%AF%D8%A9%20%D8%A7%D8%B3%D8%A8%D9%8A%D8%B4%D9%8A%D8%A7%D9%84.png?raw=true',  cat:'coffee' },
-  { id:'light-spiced-special', name:'فاتح محوج اسبيشيال',  price:90, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%81%D8%A7%D8%AA%D8%AD%20%D9%85%D8%AD%D9%88%D8%AC%20%D8%A7%D8%B3%D8%A8%D9%8A%D8%B4%D9%8A%D8%A7%D9%84.png?raw=true', cat:'coffee' },
-  { id:'medium-plain-special', name:'وسط سادة اسبيشيال',   price:85, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%88%D8%B3%D8%B7%20%D8%B3%D8%A7%D8%AF%D8%A9%20%D8%A7%D8%B3%D8%A8%D9%8A%D8%B4%D9%8A%D8%A7%D9%84.png?raw=true', cat:'coffee' },
-  { id:'medium-spiced-special',name:'وسط محوج اسبيشيال',   price:95, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%88%D8%B3%D8%B7%20%D9%85%D8%AD%D9%88%D8%AC%20%D8%B3%D8%A8%D9%8A%D8%B4%D9%8A%D8%A7%D9%84.png?raw=true',cat:'coffee' },
-  { id:'french',        name:'بن فرنساوي',        price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D8%A8%D9%86%20%D9%81%D8%B1%D9%86%D8%B3%D8%A7%D9%88%D9%8A.png?raw=true',        cat:'special' },
-  { id:'hazelnut',       name:'بن بالبندق',        price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D8%A8%D9%86%20%D8%A8%D8%A7%D9%84%D8%A8%D9%86%D8%AF%D9%82.png?raw=true',       cat:'special' },
-  { id:'coffee-mix',     name:'كوفي ميكس ممتاز',    price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%83%D9%88%D9%81%D9%8A%20%D9%85%D9%8A%D9%83%D8%B3%20%D9%85%D9%85%D8%AA%D8%A7%D8%B2.png?raw=true',     cat:'drinks' },
-  { id:'hot-chocolate',  name:'هوت شوكليت',        price:50, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D9%87%D9%88%D8%AA%20%D8%B4%D9%88%D9%83%D9%84%D9%8A%D8%AA.png?raw=true',  cat:'drinks' },
-  { id:'sahlab-nuts',    name:'سحلب بالمكسرات',    price:50, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/%D8%B3%D8%AD%D9%84%D8%A8%20%D8%A8%D8%A7%D9%84%D9%85%D9%83%D8%B3%D8%B1%D8%A7%D8%AA.png?raw=true',    cat:'drinks' },
+  { id:'light-plain',  name:'فاتح سادة',            price:65, img:'products/light-plain.jpg',  cat:'coffee', group:'plain' },
+  { id:'light-spiced', name:'فاتح محوج',            price:75, img:'products/light-spiced.jpg', cat:'coffee' },
+  { id:'medium-plain', name:'وسط سادة',             price:70, img:'products/medium-plain.jpg', cat:'coffee', group:'plain' },
+  { id:'medium-spiced',name:'وسط محوج',             price:80, img:'products/medium-spiced.jpg',cat:'coffee' },
+  { id:'dark-plain',   name:'غامق سادة',            price:75, img:'products/dark-plain.jpg',   cat:'coffee', group:'plain' },
+  { id:'dark-spiced',  name:'غامق محوج',            price:85, img:'products/dark-spiced.jpg',  cat:'coffee' },
+  { id:'light-plain-special',  name:'فاتح سادة اسبيشيال',  price:80, img:'products/light-plain-special.jpg',  cat:'coffee' },
+  { id:'light-spiced-special', name:'فاتح محوج اسبيشيال',  price:90, img:'products/light-spiced-special.jpg', cat:'coffee' },
+  { id:'medium-plain-special', name:'وسط سادة اسبيشيال',   price:85, img:'products/medium-plain-special.jpg', cat:'coffee' },
+  { id:'medium-spiced-special',name:'وسط محوج اسبيشيال',   price:95, img:'products/medium-spiced-special.jpg',cat:'coffee' },
+  { id:'french',        name:'بن فرنساوي',        price:70, img:'products/french.jpg',        cat:'special' },
+  { id:'hazelnut',       name:'بن بالبندق',        price:70, img:'products/hazelnut.jpg',       cat:'special' },
+  { id:'coffee-mix',     name:'كوفي ميكس ممتاز',    price:75, img:'products/coffee-mix.jpg',     cat:'drinks' },
+  { id:'hot-chocolate',  name:'هوت شوكليت',        price:50, img:'products/hot-chocolate.jpg',  cat:'drinks' },
+  { id:'sahlab-nuts',    name:'سحلب بالمكسرات',    price:50, img:'products/sahlab-nuts.jpg',    cat:'drinks' },
 ];
 
 const GOVERNORATES = [
@@ -700,7 +702,7 @@ function renderCart(){
       const row = document.createElement('div');
       row.className = 'cart-item';
       row.innerHTML = `
-        <img src="${p.img}" alt="${p.name}">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
         <div>
           <div class="name">${p.name}</div>
           <div class="sub">${item.qty} × ${unit} ج.م${unit < p.price ? ' (خصم عرض)' : ''}</div>
