@@ -209,13 +209,28 @@ p{ line-height:1.9; color:var(--parchment); }
 @media (max-width: 900px){
   .nav-links{
     position:fixed; inset:0 0 0 auto; width:78%; max-width:340px;
-    background:var(--espresso); flex-direction:column; padding:110px 36px 40px;
+    background:#1b1108 !important; opacity:1 !important;
+    flex-direction:column; padding:110px 36px 40px;
     transform:translateX(100%); transition:transform .5s var(--ease);
     border-left:1px solid var(--bronze-line);
+    z-index:2500;
+    box-shadow:-20px 0 50px rgba(0,0,0,.5);
   }
+  .nav-links a{ font-size:20px; font-weight:700; }
   .nav-links.open{ transform:translateX(0); }
-  .nav-toggle{ display:block; }
+  .nav-toggle{ display:block; z-index:2600; }
+  .nav-cta{ position:relative; z-index:2600; }
   .nav-cta .btn-ghost{ display:none; }
+  .site-header:has(.nav-links.open){
+    background:rgb(23,15,9);
+    border-color:var(--bronze-line);
+    z-index:2400;
+  }
+  .site-header.menu-open{
+    background:rgb(23,15,9);
+    border-color:var(--bronze-line);
+    z-index:2400;
+  }
 }
 
 /* -----------------------------------------------------------
@@ -481,6 +496,13 @@ footer{
 }
 .footer-brand .brand{ margin-bottom:16px; }
 .footer-brand p{ font-size:13.5px; color:var(--parchment-dim); max-width:32ch; }
+.footer-address{
+  display:flex; align-items:flex-start; gap:8px;
+  margin-top:14px; max-width:30ch;
+  font-size:13.5px; color:var(--parchment-dim); line-height:1.7;
+  font-style:normal;
+}
+.footer-address svg{ width:16px; height:16px; flex-shrink:0; margin-top:2px; color:var(--gold); }
 .footer-col h5{ color:var(--ivory); font-size:14px; margin-bottom:18px; font-family:'Tajawal',sans-serif; font-weight:700; }
 .footer-col ul{ display:flex; flex-direction:column; gap:11px; }
 .footer-col a{ font-size:13.5px; color:var(--parchment-dim); transition:color .3s ease; }
@@ -742,6 +764,34 @@ footer{
     font-size: 12px;
   }
 }
+
+/* -----------------------------------------------------------
+   Mobile improvements — larger text, better spacing
+----------------------------------------------------------- */
+@media (max-width:640px){
+  .page-hero{ padding:110px 0 60px; }
+  .page-hero h1{ font-size:clamp(28px,7vw,40px); }
+  .page-hero p{ font-size:15px; padding:0 10px; }
+  .machine-copy h2{ font-size:clamp(22px,5vw,30px); }
+  .machine-copy p{ font-size:15px; }
+  .spec-list li{ font-size:14px; padding:14px 0; }
+  .spec-list li span:last-child{ font-size:15px; }
+  .journey{ padding:80px 0; }
+  .journey-steps{ gap:80px; }
+  .js-copy h3{ font-size:22px; }
+  .js-copy p{ font-size:15px; }
+  .js-node{ width:70px; height:70px; }
+  .js-node svg{ width:28px; height:28px; }
+  .value-card{ padding:32px 20px; }
+  .value-card h4{ font-size:18px; }
+  .value-card p{ font-size:15px; }
+  .cta{ padding:40px 20px; }
+  .cta h3{ font-size:24px; }
+  .cta p{ font-size:15px; }
+  .footer-grid{ gap:28px; padding-bottom:30px; }
+  .footer-col h5{ font-size:15px; }
+  .footer-col a{ font-size:14px; }
+}
 </style>
 </head>
 <body>
@@ -752,8 +802,6 @@ footer{
     <a href="index.html" class="brand"><img src="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg" alt="سلطان البن" width="36" height="36" loading="eager" decoding="async">سلطان البن</a>
     <nav class="nav-links" id="navLinks">
       <a href="index.html">الرئيسية</a>
-      <a href="index.html#product">المنتج</a>
-      <a href="about.html" class="active">قصتنا</a>
       <a href="booking.html">احجز عن طريق الموقع</a>
     </nav>
     <div class="nav-cta">
@@ -934,6 +982,10 @@ footer{
       <div class="footer-brand">
         <a href="index.html" class="brand"><img src="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg" alt="سلطان البن" width="36" height="36" loading="eager" decoding="async">سلطان البن</a>
         <p>قهوة مختصة تُحاكي الأصالة، من قلب المزارع إلى فنجانك.</p>
+        <address class="footer-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span>بورسعيد، حي الضواحي، شارع النقال الداخلي، بجوار شرف للسيارات</span>
+        </address>
       </div>
       <div class="footer-col">
         <h5>الموقع</h5>
@@ -959,7 +1011,7 @@ footer{
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 جميع الحقوق محفوظة لسلطان البن</span>
+      <span>© 2026 جميع الحقوق محفوظة لسلطان البن — س.ت: 43132</span>
       <!-- ====== TERONEX BADGE ====== -->
       <a href="https://teronex-tech.github.io/Teronex/" target="_blank" rel="noopener" class="teronex-badge" aria-label="Teronex – تطوير و تصميم">
         <span class="teronex-badge-inner">
@@ -997,9 +1049,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navToggle) {
     navToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
+      header.classList.toggle('menu-open', navLinks.classList.contains('open'));
     });
     navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        header.classList.remove('menu-open');
+      });
     });
   }
 
