@@ -21,7 +21,6 @@
   --ivory:       #fbf3e3;
   --parchment:   #d3c4a5;
   --parchment-dim: #a9987e;
-  --good:#7fbf7f; --bad:#e07a6b; --info:#7fb8e0; --amber:#e0b97f;
 }
 *,*::before,*::after{ box-sizing:border-box; }
 html, body { margin:0; padding:0; height:100%; }
@@ -48,7 +47,7 @@ h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
   width:100%; padding:14px; border-radius:999px; border:none; cursor:pointer; font-weight:700; font-size:15px;
   background:linear-gradient(135deg,var(--gold-bright),var(--gold) 55%, var(--gold-dim)); color:#1c1206;
 }
-.login-error{ color:var(--bad); font-size:13px; text-align:center; margin-top:8px; display:none; }
+.login-error{ color:#e07a6b; font-size:13px; text-align:center; margin-top:8px; display:none; }
 
 /* dashboard */
 #dashWrap{ flex:1; display:flex; flex-direction:column; }
@@ -81,28 +80,10 @@ h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
   flex:1; background:transparent; border:none; outline:none; color:var(--ivory); font-family:'Tajawal',sans-serif; font-size:14px;
 }
 .search-box input::placeholder{ color:var(--parchment-dim); }
-.status-filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
-.status-chip{
-  padding:8px 16px; border-radius:999px; border:1px solid var(--bronze-line); background:var(--card);
-  color:var(--parchment); font-size:12.5px; font-weight:700; cursor:pointer; transition:all .25s ease; white-space:nowrap;
-}
-.status-chip.active, .status-chip:hover{ border-color:var(--gold); background:rgba(217,172,84,.12); color:var(--gold-bright); }
 
 .count-hint{ font-size:12.5px; color:var(--parchment-dim); margin-bottom:16px; }
 
 /* status badges */
-.status-badge{
-  display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:999px; font-size:12.5px; font-weight:700;
-  white-space:nowrap;
-}
-.status-badge::before{ content:''; width:7px; height:7px; border-radius:50%; background:currentColor; }
-.s-pending{ background:rgba(217,172,84,.15); color:var(--gold-bright); }
-.s-confirmed{ background:rgba(127,184,224,.15); color:var(--info); }
-.s-preparing{ background:rgba(224,185,127,.15); color:var(--amber); }
-.s-shipped{ background:rgba(127,184,224,.15); color:#a9d4f0; }
-.s-delivered{ background:rgba(127,191,127,.15); color:var(--good); }
-.s-cancelled{ background:rgba(224,122,107,.15); color:var(--bad); }
-
 .empty-state{ text-align:center; padding:60px 0; color:var(--parchment-dim); }
 .loading{ text-align:center; padding:60px 0; color:var(--gold); }
 
@@ -138,15 +119,6 @@ h1,h2,h3{ font-family:'Aref Ruqaa',serif; color:var(--ivory); margin:0; }
   font-size:12.5px; font-weight:700; text-decoration:none; white-space:nowrap;
 }
 .proof-link-btn:hover{ background:rgba(217,172,84,.1); }
-
-.bc-status-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-.bc-status-row select{
-  flex:1; min-width:160px; padding:11px 14px; border-radius:8px; background:var(--espresso-2); border:1px solid var(--bronze-line);
-  color:var(--ivory); font-family:'Tajawal',sans-serif; font-size:13.5px; outline:none;
-}
-.bc-status-row select:focus{ border-color:var(--gold); }
-.save-hint{ font-size:12px; color:var(--good); opacity:0; transition:opacity .3s ease; white-space:nowrap; }
-.save-hint.show{ opacity:1; }
 
 /* teronex + footer */
 .teronex-badge{
@@ -219,7 +191,6 @@ footer{ flex-shrink:0; padding:30px 0 20px; border-top:1px solid var(--bronze-li
             <input type="text" id="searchInput" placeholder="ابحث بالاسم، رقم الهاتف، المحافظة، أو رقم الطلب...">
           </div>
         </div>
-        <div class="status-filters" id="statusFilters"></div>
 
         <div class="count-hint" id="countHint"></div>
 
@@ -256,25 +227,10 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9Tdqo3QmCDyOxWdKWb
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "coffee2026";
 
-const STATUS_KEY = 'الحالة';
-const STATUSES = [
-  { value:'قيد المراجعة', cls:'s-pending' },
-  { value:'تم التأكيد',   cls:'s-confirmed' },
-  { value:'جاري التحضير', cls:'s-preparing' },
-  { value:'تم الشحن',     cls:'s-shipped' },
-  { value:'تم التسليم',   cls:'s-delivered' },
-  { value:'ملغي',         cls:'s-cancelled' },
-];
-function statusClass(val){
-  const s = STATUSES.find(s => s.value === val);
-  return s ? s.cls : 's-pending';
-}
-
 const loginWrap = document.getElementById('loginWrap');
 const dashWrap = document.getElementById('dashWrap');
 
 let allRows = [];
-let activeStatusFilter = 'الكل';
 let searchTerm = '';
 
 function tryLogin(){
@@ -311,9 +267,8 @@ async function loadBookings(){
     const res = await fetch(`${SCRIPT_URL}?action=list&pass=${encodeURIComponent(ADMIN_PASS)}`);
     const data = await res.json();
     if (data.status !== 'ok') throw new Error(data.message || 'خطأ غير معروف');
-    allRows = data.rows.map(r => { if (!r[STATUS_KEY]) r[STATUS_KEY] = 'قيد المراجعة'; return r; });
+    allRows = data.rows;
     renderStats(allRows);
-    renderStatusFilters();
     applyFilters();
   } catch (err){
     wrap.innerHTML = `<div class="empty-state">تعذّر تحميل البيانات: ${err.message}</div>`;
@@ -326,42 +281,16 @@ function renderStats(rows){
   const totalRevenue = rows.reduce((s, r) => s + (Number(r['الإجمالي الكلي']) || 0), 0);
   const today = new Date().toDateString();
   const todayOrders = rows.filter(r => new Date(r['التاريخ والوقت']).toDateString() === today).length;
-  const pendingOrders = rows.filter(r => r[STATUS_KEY] === 'قيد المراجعة').length;
 
   wrap.innerHTML = `
     <div class="stat-card"><div class="num">${totalOrders}</div><div class="label">إجمالي الحجوزات</div></div>
     <div class="stat-card"><div class="num">${todayOrders}</div><div class="label">حجوزات اليوم</div></div>
-    <div class="stat-card"><div class="num">${pendingOrders}</div><div class="label">قيد المراجعة</div></div>
     <div class="stat-card"><div class="num">${totalRevenue.toLocaleString('ar-EG')} ج.م</div><div class="label">إجمالي القيمة</div></div>
   `;
 }
 
-function renderStatusFilters(){
-  const wrap = document.getElementById('statusFilters');
-  const counts = { 'الكل': allRows.length };
-  STATUSES.forEach(s => counts[s.value] = allRows.filter(r => r[STATUS_KEY] === s.value).length);
-
-  const chips = ['الكل', ...STATUSES.map(s => s.value)];
-  wrap.innerHTML = chips.map(label => `
-    <button type="button" class="status-chip ${label === activeStatusFilter ? 'active' : ''}" data-status="${label}">
-      ${label} (${counts[label] || 0})
-    </button>
-  `).join('');
-
-  wrap.querySelectorAll('.status-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      activeStatusFilter = chip.dataset.status;
-      renderStatusFilters();
-      applyFilters();
-    });
-  });
-}
-
 function applyFilters(){
   let rows = allRows;
-  if (activeStatusFilter !== 'الكل'){
-    rows = rows.filter(r => r[STATUS_KEY] === activeStatusFilter);
-  }
   if (searchTerm){
     rows = rows.filter(r => {
       const hay = [r['الاسم'], r['رقم الهاتف 1'], r['رقم الهاتف 2'], r['المحافظة'], r['رقم الطلب']]
@@ -381,15 +310,10 @@ function renderCards(rows){
   }
 
   wrap.innerHTML = `<div class="bookings-grid">${rows.map(cardHtml).join('')}</div>`;
-
-  wrap.querySelectorAll('.bc-status-select').forEach(sel => {
-    sel.addEventListener('change', (e) => updateStatus(e.target.dataset.order, e.target.value, e.target));
-  });
 }
 
 function cardHtml(r){
   const date = r['التاريخ والوقت'] ? new Date(r['التاريخ والوقت']).toLocaleString('ar-EG') : '';
-  const status = r[STATUS_KEY] || 'قيد المراجعة';
   const orderId = r['رقم الطلب'] || '';
   const itemsHtml = (r['الأصناف'] || '').split(' | ').filter(Boolean).map(i => `<div>• ${i}</div>`).join('') || 'لا توجد أصناف مسجّلة';
   const proofHtml = r['رابط إثبات الدفع']
@@ -403,7 +327,6 @@ function cardHtml(r){
           <div class="order-id">${orderId}</div>
           <div class="order-date">${date}</div>
         </div>
-        <span class="status-badge ${statusClass(status)}">${status}</span>
       </div>
 
       <div class="bc-section">
@@ -454,52 +377,10 @@ function cardHtml(r){
           ${proofHtml}
         </div>
       </div>
-
-      <div class="bc-section">
-        <div class="bc-label">حالة الطلب</div>
-        <div class="bc-status-row">
-          <select class="bc-status-select" data-order="${orderId}">
-            ${STATUSES.map(s => `<option value="${s.value}" ${s.value === status ? 'selected' : ''}>${s.value}</option>`).join('')}
-          </select>
-          <span class="save-hint" data-hint-for="${orderId}">✔ تم الحفظ</span>
-        </div>
-      </div>
     </div>
   `;
 }
 
-async function updateStatus(orderId, newStatus, selectEl){
-  selectEl.disabled = true;
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action:'updateStatus', orderId, status: newStatus, pass: ADMIN_PASS })
-    });
-    const data = await res.json();
-    if (data.status === 'ok'){
-      const row = allRows.find(r => r['رقم الطلب'] === orderId);
-      if (row) row[STATUS_KEY] = newStatus;
-
-      const card = selectEl.closest('.booking-card');
-      const badge = card.querySelector('.status-badge');
-      badge.textContent = newStatus;
-      badge.className = 'status-badge ' + statusClass(newStatus);
-
-      const hint = card.querySelector('.save-hint');
-      hint.classList.add('show');
-      setTimeout(() => hint.classList.remove('show'), 2000);
-
-      renderStats(allRows);
-      renderStatusFilters();
-    } else {
-      alert('تعذّر تحديث الحالة: ' + (data.message || ''));
-    }
-  } catch (err){
-    alert('تعذّر الاتصال بالخادم لتحديث الحالة.');
-  }
-  selectEl.disabled = false;
-}
 
 /* keep session across refresh */
 if (sessionStorage.getItem('sb_admin_ok') === '1'){
