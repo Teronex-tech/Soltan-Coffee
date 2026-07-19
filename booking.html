@@ -8,14 +8,42 @@
 <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
 <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
 <link rel="icon" href="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg">
+<script>(function(){try{var t=localStorage.getItem('sb-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <style>
 /* ===========================================================
    سلطان البن — Booking Page
    Design tokens reused from index.html
 =========================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&display=swap');
 
 :root{
+  --void:        #f6efe2;
+  --espresso:    #efe4d0;
+  --espresso-2:  #e7d8bf;
+  --card:        #fffaf0;
+  --gold:        #b9882f;
+  --gold-bright: #8a6212;
+  --gold-dim:    #9c7838;
+  --bronze-line: rgba(138,98,18,0.28);
+  --ivory:       #2a1d0d;
+  --parchment:   #4a3a23;
+  --parchment-dim: #6f5b3e;
+  --good: #3f8f3f;
+  --bad: #c24432;
+  --header-bg:   rgba(246,239,226,.92);
+  --header-bg-solid: rgb(246,239,226);
+  --mobile-nav-bg: #fffaf0;
+  --card-hover:  #fff6e6;
+  --teronex-bg:  linear-gradient(135deg, #fff6e6, #f3e4c8);
+  --free-banner-bg: linear-gradient(135deg, #fff6e6, #f3e4c8);
+  --pills-note-bg: rgba(217,172,84,.08);
+
+  --radius: 2px;
+  --ease: cubic-bezier(.22,.85,.32,1);
+  --container: 1240px;
+}
+
+html[data-theme="dark"]{
   --void:        #170f09;
   --espresso:    #241809;
   --espresso-2:  #2c1d0e;
@@ -29,19 +57,23 @@
   --parchment-dim: #a9987e;
   --good: #7fbf7f;
   --bad: #e07a6b;
-
-  --radius: 2px;
-  --ease: cubic-bezier(.22,.85,.32,1);
-  --container: 1240px;
+  --header-bg:   rgba(23,15,9,.92);
+  --header-bg-solid: rgb(23,15,9);
+  --mobile-nav-bg: #1b1108;
+  --card-hover:  #241809;
+  --teronex-bg:  linear-gradient(135deg, #1a110c, #2c1d0e);
+  --free-banner-bg: linear-gradient(135deg, #291a0c, #241809);
+  --pills-note-bg: rgba(217,172,84,.08);
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; font-size:18px; }
 body{
   margin:0;
   background:var(--void);
   color:var(--parchment);
   font-family:'Tajawal', sans-serif;
+  font-size:1.05rem;
   direction:rtl;
   -webkit-font-smoothing:antialiased;
 }
@@ -53,7 +85,7 @@ ul{ list-style:none; margin:0; padding:0; }
 .container{ max-width:var(--container); margin:0 auto; padding:0 32px; }
 @media (max-width:640px){ .container{ padding:0 18px; } }
 
-h1,h2,h3,h4{ font-family:'Aref Ruqaa', serif; color:var(--ivory); margin:0; font-weight:700; line-height:1.25; }
+h1,h2,h3,h4{ font-family:'El Messiri', 'Tajawal', sans-serif; color:var(--ivory); margin:0; font-weight:700; line-height:1.25; }
 .gold-text{ color:var(--gold); }
 p{ line-height:1.9; color:var(--parchment); margin:0; }
 
@@ -84,10 +116,10 @@ p{ line-height:1.9; color:var(--parchment); margin:0; }
 /* ---------- header ---------- */
 .site-header{
   position:fixed; top:0; right:0; left:0; z-index:900; padding:16px 0;
-  background:rgba(23,15,9,.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--bronze-line);
+  background:var(--header-bg); backdrop-filter:blur(14px); border-bottom:1px solid var(--bronze-line);
 }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; }
-.brand{ display:flex; align-items:center; gap:12px; font-family:'Aref Ruqaa',serif; font-size:22px; color:var(--ivory); }
+.brand{ display:flex; align-items:center; gap:12px; font-family:'El Messiri','Tajawal',sans-serif; font-size:22px; color:var(--ivory); }
 .brand img{ height:36px; width:auto; }
 .nav-links{ display:flex; gap:34px; }
 .nav-links a{ font-size:14.5px; color:var(--parchment); position:relative; padding:6px 0; transition:color .3s ease; }
@@ -98,32 +130,33 @@ p{ line-height:1.9; color:var(--parchment); margin:0; }
 .nav-toggle span{ position:absolute; right:0; width:100%; height:1.5px; background:var(--gold); transition:all .35s var(--ease); }
 .nav-toggle span:nth-child(1){ top:0; } .nav-toggle span:nth-child(2){ top:9px; } .nav-toggle span:nth-child(3){ top:18px; }
 @media (max-width:900px){
-  .nav-links{ position:fixed; inset:0 0 0 auto; width:78%; max-width:320px; background:#1b1108 !important; opacity:1 !important;
+  .nav-links{ position:fixed; inset:0 0 0 auto; width:78%; max-width:320px;     background:var(--mobile-nav-bg) !important; opacity:1 !important;
     flex-direction:column; padding:100px 30px 40px; transform:translateX(100%); transition:transform .5s var(--ease);
-    border-left:1px solid var(--bronze-line); z-index:2500; box-shadow:-20px 0 50px rgba(0,0,0,.5); }
+    border-left:1px solid var(--bronze-line); z-index:2500; box-shadow:-20px 0 50px rgba(120,80,20,.25); }
   .nav-links a{ font-size:20px; font-weight:700; }
   .nav-links.open{ transform:translateX(0); }
   .nav-toggle{ display:block; z-index:2600; }
-  .site-header:has(.nav-links.open){ background:rgb(23,15,9); backdrop-filter:blur(14px); z-index:2400; }
-  .site-header.menu-open{ background:rgb(23,15,9); backdrop-filter:blur(14px); z-index:2400; }
+  .site-header:has(.nav-links.open){ background:var(--header-bg-solid); backdrop-filter:blur(14px); z-index:2400; }
+  .site-header.menu-open{ background:var(--header-bg-solid); backdrop-filter:blur(14px); z-index:2400; }
 }
 
 /* ---------- page hero ---------- */
 .page-hero{ padding:150px 0 60px; text-align:center; }
-.page-hero h1{ font-size:clamp(30px,5vw,48px); margin-bottom:14px; }
+.page-hero h1{ font-family:'El Messiri','Tajawal',sans-serif; font-weight:700; font-size:clamp(32px,5.4vw,52px); margin-bottom:14px; letter-spacing:.01em; }
 .page-hero p{ max-width:60ch; margin:0 auto; color:var(--parchment-dim); }
 
 /* ---------- step badge ---------- */
 .step-head{ display:flex; align-items:center; gap:14px; margin-bottom:28px; }
 .step-num{
   width:38px; height:38px; border-radius:50%; border:1px solid var(--gold-dim); color:var(--gold-bright);
-  display:flex; align-items:center; justify-content:center; font-family:'Aref Ruqaa',serif; font-size:17px; flex:none;
+  display:flex; align-items:center; justify-content:center; font-family:'El Messiri','Tajawal',sans-serif; font-size:17px; flex:none;
 }
 .step-head h3{ font-size:22px; }
 
 section.booking-block{ padding:26px 0 54px; }
 .panel{
   background:var(--card); border:1px solid var(--bronze-line); border-radius:6px; padding:30px;
+  box-shadow:0 14px 36px -24px rgba(138,98,18,.45);
 }
 @media (max-width:640px){ .panel{ padding:20px; } }
 
@@ -144,6 +177,12 @@ section.booking-block{ padding:26px 0 54px; }
   color:var(--parchment-dim); font-size:13.5px; text-align:center;
 }
 .pills-note strong{ color:var(--gold); }
+.pills-cat-label{
+  width:100%; font-family:'El Messiri','Tajawal',sans-serif; font-weight:700;
+  font-size:15px; color:var(--gold); margin:18px 0 6px; padding-bottom:6px;
+  border-bottom:1px solid var(--bronze-line);
+}
+.pills-cat-label:first-child{ margin-top:4px; }
 .product-pill{
   padding:12px 18px; border-radius:10px; border:1px solid var(--bronze-line); background:var(--espresso-2);
   color:var(--parchment); cursor:pointer; font-size:14px; display:flex; align-items:center; gap:10px;
@@ -162,6 +201,17 @@ section.booking-block{ padding:26px 0 54px; }
 .product-preview h4{ font-size:21px; margin-bottom:6px; }
 .product-preview .price-line{ color:var(--gold-bright); font-size:17px; margin-bottom:14px; font-weight:700; }
 .product-preview .price-line .old{ color:var(--parchment-dim); text-decoration:line-through; font-size:14px; margin-inline-start:8px; font-weight:400; }
+.weight-label{ font-size:14px; color:var(--parchment-dim); margin-bottom:8px; font-weight:700; }
+.weight-options{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:16px; }
+.weight-btn{
+  border:1px solid var(--gold-dim); background:transparent; color:var(--ivory);
+  border-radius:8px; padding:9px 10px; cursor:pointer; text-align:center; line-height:1.3;
+  font-family:'Tajawal',sans-serif; font-size:13.5px; transition:all .25s var(--ease);
+}
+.weight-btn .w-price{ display:block; color:var(--gold-bright); font-weight:700; font-size:13px; margin-top:2px; }
+.weight-btn:hover{ border-color:var(--gold); background:rgba(217,172,84,.1); }
+.weight-btn.active{ border-color:var(--gold-bright); background:rgba(217,172,84,.2); box-shadow:0 0 0 1px var(--gold-bright) inset; }
+@media (max-width:640px){ .weight-options{ grid-template-columns:1fr 1fr; } }
 .preview-actions{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
 @media (max-width:640px){ .preview-actions{ justify-content:center; } }
 
@@ -184,6 +234,12 @@ section.booking-block{ padding:26px 0 54px; }
 .cart-item img{ width:56px; height:56px; object-fit:cover; border-radius:8px; }
 .cart-item .name{ color:var(--ivory); font-weight:700; font-size:14.5px; }
 .cart-item .sub{ font-size:12.5px; color:var(--parchment-dim); }
+.cart-item .size-badge{
+  display:inline-block; font-family:'Tajawal',sans-serif; font-size:11.5px; font-weight:700;
+  color:var(--gold-bright); background:rgba(217,172,84,.16);
+  border:1px solid var(--gold-dim); border-radius:999px; padding:1px 9px; margin-inline-start:6px;
+  vertical-align:middle;
+}
 .cart-item .line-total{ color:var(--gold-bright); font-weight:700; white-space:nowrap; }
 .cart-item .remove{ background:none; border:none; color:var(--bad); cursor:pointer; font-size:13px; }
 .cart-empty{ text-align:center; padding:30px 0; color:var(--parchment-dim); }
@@ -281,7 +337,7 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
   justify-content: center;
   position: relative;
   padding: 8px 20px 8px 16px;
-  background: linear-gradient(135deg, #1a110c, #2c1d0e);
+  background: var(--teronex-bg);
   border: 1px solid var(--gold-dim);
   border-radius: 0; /* بدون حواف مستديرة */
   color: var(--gold-bright);
@@ -430,6 +486,134 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
   .payment-option .pnum{ font-size:15px; }
   footer{ padding:30px 0 20px; }
 }
+
+/* -----------------------------------------------------------
+   Moving slogan marquee - يظهر من أقصى اليمين ويخرج من الشمال
+----------------------------------------------------------- */
+.slogan-strip{
+  background:linear-gradient(135deg, var(--gold), var(--gold-dim));
+  color:#1c1206;
+  overflow:hidden;
+  padding:14px 0;
+  border-top:1px solid var(--bronze-line);
+  border-bottom:1px solid var(--bronze-line);
+  direction: ltr;
+  position: relative;
+  /* منع ظهور أي محتوى خارج الشاشة */
+}
+
+.slogan-track{
+  display:flex;
+  flex-wrap:nowrap;
+  direction:ltr;
+  white-space:nowrap;
+  width:max-content;
+  will-change:transform;
+  /* نبدأ من أقصى اليمين (برا الشاشة) ونروح لليسار */
+  animation: marquee-rtl 30s linear infinite;
+}
+
+.slogan-track span{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-family:'El Messiri','Tajawal',sans-serif;
+  font-weight:700;
+  font-size:1.4rem;
+  padding:0 38px;
+  letter-spacing:.01em;
+}
+
+.slogan-track span::after{
+  content:'✦';
+  margin-inline-start:38px;
+  color:#1c1206;
+  opacity:.6;
+}
+
+/* 
+   نبدأ من 100% (النص كله برا الشاشة على اليمين)
+   ونروح لـ -33.33% (النص يخرج من الشمال)
+   مع 3 نسخ عشان الاستمرارية
+*/
+@keyframes marquee-rtl{
+  0%{
+    transform: translateX(100%);
+  }
+  100%{
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .slogan-track{
+    animation:none;
+  }
+}
+/* -----------------------------------------------------------
+   400 EGP free delivery banner
+----------------------------------------------------------- */
+.free-delivery-banner{
+  display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+  background:var(--free-banner-bg);
+  border:1px solid var(--gold-dim); border-radius:10px;
+  padding:22px 26px; margin:0 auto 30px; text-align:center;
+  box-shadow:0 16px 40px -22px rgba(138,98,18,.5);
+}
+.free-delivery-banner .fd-icon{ font-size:30px; }
+.free-delivery-banner .fd-text{ font-family:'El Messiri','Tajawal',sans-serif; font-size:clamp(20px,3vw,30px); color:var(--gold-bright); font-weight:700; }
+.free-delivery-banner .fd-sub{ font-size:14px; color:var(--parchment-dim); }
+@media (max-width:640px){
+  .free-delivery-banner{ padding:18px 20px; }
+  .free-delivery-banner .fd-text{ font-size:22px; }
+}
+
+/* -----------------------------------------------------------
+   Search filter box
+----------------------------------------------------------- */
+.product-search{
+  display:flex; align-items:center; gap:10px;
+  background:var(--espresso-2); border:1px solid var(--bronze-line);
+  border-radius:999px; padding:12px 18px; margin-bottom:22px;
+}
+.product-search svg{ width:18px; height:18px; color:var(--gold); flex:none; }
+.product-search input{
+  border:none; background:transparent; outline:none; width:100%;
+  color:var(--ivory); font-family:'Tajawal',sans-serif; font-size:15px;
+}
+.product-search input::placeholder{ color:var(--parchment-dim); }
+
+/* -----------------------------------------------------------
+   WhatsApp floating complaints button
+----------------------------------------------------------- */
+.wa-float{
+  position:fixed; bottom:24px; left:24px; z-index:1500;
+  display:inline-flex; align-items:center; gap:10px;
+  background:#25D366; color:#fff;
+  font-family:'Tajawal',sans-serif; font-weight:700; font-size:14px;
+  padding:13px 20px; border-radius:999px;
+  box-shadow:0 10px 30px -8px rgba(37,211,102,.6);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.wa-float:hover{ transform:translateY(-3px); box-shadow:0 16px 40px -8px rgba(37,211,102,.8); }
+.wa-float svg{ width:22px; height:22px; }
+@media (max-width:640px){ .wa-float{ bottom:16px; left:16px; padding:11px 16px; font-size:13px; } }
+
+/* -----------------------------------------------------------
+   Theme toggle (light / dark)
+----------------------------------------------------------- */
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--bronze-line);
+  background:transparent; cursor:pointer;
+  font-size:17px; line-height:1;
+  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+  flex:none;
+}
+.theme-toggle:hover{ border-color:var(--gold); background:rgba(201,162,75,.1); transform:translateY(-2px); }
+.theme-toggle .theme-icon-dark{ display:none; }
+html[data-theme="dark"] .theme-toggle .theme-icon-light{ display:none; }
+html[data-theme="dark"] .theme-toggle .theme-icon-dark{ display:inline; }
 </style>
 </head>
 <body>
@@ -443,6 +627,10 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
       <a href="about.html">قصتنا</a>
     </nav>
     <div style="display:flex; align-items:center; gap:18px;">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي/النهاري" title="الوضع الليلي/النهاري">
+        <span class="theme-icon theme-icon-light">🌙</span>
+        <span class="theme-icon theme-icon-dark">☀️</span>
+      </button>
       <a href="https://wa.me/201061026758" target="_blank" class="btn btn-ghost" style="display:none" id="waLink"></a>
       <button class="nav-toggle" id="navToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
     </div>
@@ -458,10 +646,32 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
   </div>
 </section>
 
+<!-- ===================== MOVING SLOGAN ===================== -->
+<div class="slogan-strip" aria-hidden="true">
+  <div class="slogan-track">
+    <span dir="rtl">سلطان البن — حبوب بن طبيعية بدون أي إضافات وبدون أي منكهات أو أي مخلوطات</span>
+    <span dir="rtl">سلطان البن — حبوب بن طبيعية بدون أي إضافات وبدون أي منكهات أو أي مخلوطات</span>
+    <span dir="rtl">سلطان البن — حبوب بن طبيعية بدون أي إضافات وبدون أي منكهات أو أي مخلوطات</span>
+  </div>
+</div>
 <!-- ===================== STEP 1: PRODUCTS ===================== -->
 <section class="booking-block">
   <div class="container">
+
+    <div class="free-delivery-banner">
+      <span class="fd-icon">🚚</span>
+      <div>
+        <div class="fd-text">اشتري بـ 400 جنيه والتوصيل مجاني</div>
+        <div class="fd-sub">عرض خاص من سلطان البن — اطلب بقيمة 400 ج.م أو أكثر ونوصلك مجانًا أينما كنت</div>
+      </div>
+    </div>
+
     <div class="step-head"><div class="step-num">1</div><h3>اختر أصنافك</h3></div>
+
+    <div class="product-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+      <input type="text" id="productSearch" placeholder="ابحث عن منتج (مثال: فاتح، محوج، فرنساوي...)">
+    </div>
 
     <div class="cat-tabs" id="catTabs"></div>
     <div class="product-pills" id="productPills"></div>
@@ -471,6 +681,8 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
       <div>
         <h4 id="previewName"></h4>
         <div class="price-line" id="previewPrice"></div>
+        <div class="weight-label">اختر الوزن</div>
+        <div class="weight-options" id="weightOptions"></div>
         <div class="preview-actions">
           <div class="qty-stepper">
             <button type="button" id="qtyMinus">−</button>
@@ -479,7 +691,6 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
           </div>
           <button type="button" class="btn btn-primary btn-sm" id="addToCartBtn">أضف للسلة 🛒</button>
         </div>
-        <div class="discount-note" id="discountNote" style="display:none;">🎉 اطلب 2 من هذا الصنف والسعر يقل 5 جنيه للحبة!</div>
       </div>
     </div>
   </div>
@@ -559,6 +770,12 @@ footer{ padding:50px 0 30px; border-top:1px solid var(--bronze-line); margin-top
   </div>
 </section>
 
+<!-- ===================== WHATSAPP COMPLAINTS ===================== -->
+<a href="https://wa.me/201555115722?text=%D8%B3%D9%84%D8%A7%D9%85%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%B3%D9%84%D8%B7%D8%A7%D9%86%20%D8%A7%D9%84%D8%A8%D9%86%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D9%82%D8%AF%D9%8A%D9%85%20%D8%B4%D9%83%D9%88%D9%89" target="_blank" rel="noopener" class="wa-float" aria-label="شكاوى عبر واتساب">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.8c2.16 0 4.19.84 5.72 2.37a8.06 8.06 0 012.37 5.74c0 4.47-3.64 8.11-8.11 8.11a8.1 8.1 0 01-4.13-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.05 8.05 0 01-1.24-4.27c0-4.47 3.64-8.11 8.18-8.11zm-4.4 3.4c-.2 0-.5.07-.76.36-.27.29-1.03 1.01-1.03 2.46s1.06 2.85 1.21 3.05c.15.2 2.09 3.2 5.08 4.39 2.39 1.04 2.88.83 3.4.78.52-.05 1.69-.69 1.93-1.36.24-.67.24-1.24.17-1.36-.07-.12-.27-.19-.57-.33-.3-.15-1.69-.83-1.95-.93-.26-.09-.45-.14-.64.14-.19.29-.73.93-.9 1.12-.16.19-.33.22-.62.07-.29-.15-1.22-.45-2.32-1.43-.86-.76-1.44-1.7-1.61-1.99-.17-.29-.02-.45.12-.59.13-.13.29-.34.43-.5.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.5-.07-.15-.64-1.54-.88-2.11-.23-.56-.46-.48-.64-.49-.16-.01-.36-.01-.56-.01z"/></svg>
+  شكاوى
+</a>
+
 <!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="container">
@@ -620,24 +837,26 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9Tdqo3QmCDyOxWdKWb
 
 /* ---------- data ---------- */
 const CATEGORIES = [
-  { id:'coffee', label:'بن سلطان' },
-  { id:'special', label:'نكهات مميزة' },
-  { id:'drinks', label:'مشروبات وميكسات' },
+  { id:'plain',   label:'بن سادة' },
+  { id:'spiced',  label:'بن محوج' },
+  { id:'special', label:'بن سبيشيال' },
+  { id:'flavors', label:'بن نكهات' },
+  { id:'drinks',  label:'مشروبات' },
 ];
 
 const PRODUCTS = [
-  { id:'light-plain',  name:'فاتح سادة',            price:65, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-plain.jpg?raw=true',  cat:'coffee', group:'plain' },
-  { id:'light-spiced', name:'فاتح محوج',            price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-spiced.jpg?raw=true', cat:'coffee' },
-  { id:'medium-plain', name:'وسط سادة',             price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-plain.jpg?raw=true', cat:'coffee', group:'plain' },
-  { id:'medium-spiced',name:'وسط محوج',             price:80, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-spiced.jpg?raw=true',cat:'coffee' },
-  { id:'dark-plain',   name:'غامق سادة',            price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/dark-plain.jpg?raw=true',   cat:'coffee', group:'plain' },
-  { id:'dark-spiced',  name:'غامق محوج',            price:85, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/dark-spiced.jpg?raw=true',  cat:'coffee' },
-  { id:'light-plain-special',  name:'فاتح سادة اسبيشيال',  price:80, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-plain-special.jpg?raw=true',  cat:'coffee' },
-  { id:'light-spiced-special', name:'فاتح محوج اسبيشيال',  price:90, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-spiced-special.jpg?raw=true', cat:'coffee' },
-  { id:'medium-plain-special', name:'وسط سادة اسبيشيال',   price:85, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-plain-special.jpg?raw=true', cat:'coffee' },
-  { id:'medium-spiced-special',name:'وسط محوج اسبيشيال',   price:95, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-spiced-special.jpg?raw=true',cat:'coffee' },
-  { id:'french',        name:'بن فرنساوي',        price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/french.jpg?raw=true',        cat:'special' },
-  { id:'hazelnut',       name:'بن بالبندق',        price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/hazelnut.jpg?raw=true',       cat:'special' },
+  { id:'light-plain',  name:'فاتح سادة',price:65, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-plain.jpg?raw=true',  cat:'plain' },
+  { id:'medium-plain', name:'وسط سادة',price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-plain.jpg?raw=true', cat:'plain' },
+  { id:'dark-plain',   name:'غامق سادة',price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/dark-plain.jpg?raw=true',   cat:'plain' },
+  { id:'light-spiced', name:'فاتح محوج',price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-spiced.jpg?raw=true', cat:'spiced' },
+  { id:'medium-spiced',name:'وسط محوج',price:80, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-spiced.jpg?raw=true',cat:'spiced' },
+  { id:'dark-spiced',  name:'غامق محوج',price:85, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/dark-spiced.jpg?raw=true',  cat:'spiced' },
+  { id:'light-plain-special',  name:'فاتح سادة اسبيشيال',  price:80, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-plain-special.jpg?raw=true',  cat:'special' },
+  { id:'light-spiced-special', name:'فاتح محوج اسبيشيال',  price:90, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/light-spiced-special.jpg?raw=true', cat:'special' },
+  { id:'medium-plain-special', name:'وسط سادة اسبيشيال',   price:85, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-plain-special.jpg?raw=true', cat:'special' },
+  { id:'medium-spiced-special',name:'وسط محوج اسبيشيال',   price:95, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/medium-spiced-special.jpg?raw=true',cat:'special' },
+  { id:'french',        name:'بن فرنساوي',        price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/frensh.png?raw=true',        cat:'flavors' },
+  { id:'hazelnut',       name:'بن بالبندق',        price:70, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/hazelnut.jpg?raw=true',       cat:'flavors' },
   { id:'coffee-mix',     name:'كوفي ميكس ممتاز',    price:75, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/comx.png?raw=true',     cat:'drinks' },
   { id:'hot-chocolate',  name:'هوت شوكليت',        price:50, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/hot.png?raw=true',  cat:'drinks' },
   { id:'sahlab-nuts',    name:'سحلب بالمكسرات',    price:50, img:'https://github.com/Teronex-tech/Soltan-Coffee/blob/main/products/sahlab.png?raw=true',    cat:'drinks' },
@@ -676,17 +895,26 @@ const GOVERNORATES = [
 
 let activeCat = 'coffee';
 let selectedProductId = null;
+let selectedWeight = 125;
 let selectedQty = 1;
-let cart = []; // {id, qty}
+let cart = []; // {id, weight, qty}
 let paymentProofBase64 = '';
 let paymentProofMime = '';
 let selectedPaymentMethod = '';
 
 /* ---------- helpers ---------- */
+let searchTerm = '';
+const WEIGHTS = [
+  { label:'125 جم', grams:125 },
+  { label:'ربع (250 جم)', grams:250 },
+  { label:'نص كيلو (500 جم)', grams:500 },
+  { label:'كيلو (1000 جم)', grams:1000 },
+];
 function getProduct(id){ return PRODUCTS.find(p => p.id === id); }
-function unitPriceFor(product, qty){
-  if (product.group === 'plain' && qty >= 2) return product.price - 5;
-  return product.price;
+/* السعر للوزن المختار = سعر الـ125 × (الوزن ÷ 125) — خطي بدون خصم */
+function unitPriceFor(product, weight){
+  const w = weight || 125;
+  return product.price * (w / 125);
 }
 
 /* ---------- render category tabs ---------- */
@@ -713,26 +941,78 @@ function renderCatTabs(){
 function renderProductPills(){
   const wrap = document.getElementById('productPills');
   wrap.innerHTML = '';
-  const catProducts = PRODUCTS.filter(p => p.cat === activeCat);
-  catProducts.forEach(p => {
-    const pill = document.createElement('button');
-    pill.type = 'button';
-    pill.className = 'product-pill' + (p.id === selectedProductId ? ' selected' : '');
-    pill.innerHTML = `${p.name} <span class="price">${p.price} ج.م</span>`;
-    pill.addEventListener('click', () => selectProduct(p.id));
-    wrap.appendChild(pill);
-  });
+  const term = searchTerm.trim().toLowerCase();
+
+  /* لو فيه كلمة بحث: ندور في كل المنتجات (من كل الكاتيجوريز) ونعرض اسم القسم
+     لو مفيش كلمة: نعرض منتجات الكاتيجوري المختار زي المعتاد */
+  const searching = term.length > 0;
+  const catProducts = PRODUCTS
+    .filter(p => !searching || p.name.toLowerCase().includes(term))
+    .filter(p => searching || p.cat === activeCat);
+
+  if (catProducts.length === 0){
+    const empty = document.createElement('div');
+    empty.className = 'pills-note';
+    empty.textContent = 'لا توجد منتجات مطابقة لبحثك.';
+    wrap.appendChild(empty);
+    return;
+  }
+
+  /* لما بنبحث، نجمع النتائج تحت عنوان كل قسم عشان تعرف المنتج منين */
+  if (searching){
+    const catOrder = [...CATEGORIES];
+    catOrder.forEach(cat => {
+      const items = catProducts.filter(p => p.cat === cat.id);
+      if (items.length === 0) return;
+      const head = document.createElement('div');
+      head.className = 'pills-cat-label';
+      head.textContent = cat.label;
+      wrap.appendChild(head);
+      items.forEach(p => wrap.appendChild(makePill(p)));
+    });
+  } else {
+    catProducts.forEach(p => wrap.appendChild(makePill(p)));
+  }
+
   const note = document.createElement('div');
   note.className = 'pills-note';
-  note.innerHTML = `جميع الأسعار لوزن <strong>125 جرام صافي</strong> للعبوة`;
+  note.innerHTML = `الأسعار المعروضة للوزن <strong> بالجرام صافي</strong> — متوفر أوزان  (ربع / نص كيلو / كيلو) عند اختيار الصنف`;
   wrap.appendChild(note);
+}
+
+function makePill(p){
+  const pill = document.createElement('button');
+  pill.type = 'button';
+  pill.className = 'product-pill' + (p.id === selectedProductId ? ' selected' : '');
+  pill.innerHTML = `${p.name} <span class="price">${p.price} ج.م</span>`;
+  pill.addEventListener('click', () => selectProduct(p.id));
+  return pill;
 }
 
 function selectProduct(id){
   selectedProductId = id;
+  selectedWeight = 125;
   selectedQty = 1;
   renderProductPills();
   showPreview();
+}
+
+function renderWeightOptions(){
+  const wrap = document.getElementById('weightOptions');
+  wrap.innerHTML = '';
+  WEIGHTS.forEach(w => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'weight-btn' + (w.grams === selectedWeight ? ' active' : '');
+    const p = getProduct(selectedProductId);
+    btn.innerHTML = `${w.label}<span class="w-price">${p.price * (w.grams/125)} ج.م</span>`;
+    btn.addEventListener('click', () => {
+      selectedWeight = w.grams;
+      renderWeightOptions();
+      updatePreviewPrice();
+    });
+    wrap.appendChild(btn);
+  });
 }
 
 function showPreview(){
@@ -743,37 +1023,37 @@ function showPreview(){
   document.getElementById('previewImg').alt = p.name;
   document.getElementById('previewName').textContent = p.name;
   document.getElementById('qtyValue').value = selectedQty;
+  renderWeightOptions();
   updatePreviewPrice();
-  document.getElementById('discountNote').style.display = (p.group === 'plain') ? 'block' : 'none';
 }
 
 function updatePreviewPrice(){
   const p = getProduct(selectedProductId);
   if (!p) return;
-  const unit = unitPriceFor(p, selectedQty);
-  let html = `${unit} ج.م / للحبة`;
-  if (unit < p.price) html += `<span class="old">${p.price} ج.م</span>`;
-  document.getElementById('previewPrice').innerHTML = html;
+  const unit = unitPriceFor(p, selectedWeight);
+  document.getElementById('previewPrice').textContent = `${unit} ج.م / ${selectedWeight >= 1000 ? 'كيلو' : selectedWeight + ' جم'}`;
 }
 
 document.getElementById('qtyMinus').addEventListener('click', () => {
   if (selectedQty > 1) selectedQty--;
   document.getElementById('qtyValue').value = selectedQty;
-  updatePreviewPrice();
 });
 document.getElementById('qtyPlus').addEventListener('click', () => {
   selectedQty++;
   document.getElementById('qtyValue').value = selectedQty;
-  updatePreviewPrice();
 });
 
 document.getElementById('addToCartBtn').addEventListener('click', () => {
   if (!selectedProductId) return;
-  const existing = cart.find(c => c.id === selectedProductId);
+  const existing = cart.find(c => c.id === selectedProductId && c.weight === selectedWeight);
   if (existing) existing.qty += selectedQty;
-  else cart.push({ id: selectedProductId, qty: selectedQty });
+  else cart.push({ id: selectedProductId, weight: selectedWeight, qty: selectedQty });
   selectedQty = 1;
   document.getElementById('qtyValue').value = 1;
+  const wLabel = selectedWeight >= 1000 ? 'كيلو' : (selectedWeight + ' جم');
+  const p = getProduct(selectedProductId);
+  const added = cart.find(c => c.id === selectedProductId && c.weight === selectedWeight);
+  showStatus(`✅ تمت الإضافة: ${p.name} — حجم ${wLabel} (${added.qty} في السلة)`, true);
   renderCart();
 });
 
@@ -786,15 +1066,16 @@ function renderCart(){
     wrap.innerHTML = '';
     cart.forEach((item, idx) => {
       const p = getProduct(item.id);
-      const unit = unitPriceFor(p, item.qty);
+      const unit = unitPriceFor(p, item.weight);
       const lineTotal = unit * item.qty;
+      const wLabel = item.weight >= 1000 ? 'كيلو' : (item.weight + ' جم');
       const row = document.createElement('div');
       row.className = 'cart-item';
       row.innerHTML = `
         <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
         <div>
-          <div class="name">${p.name}</div>
-          <div class="sub">${item.qty} × ${unit} ج.م${unit < p.price ? ' (خصم عرض)' : ''}</div>
+          <div class="name">${p.name} <span class="size-badge">${wLabel}</span></div>
+          <div class="sub">${item.qty} × ${unit} ج.م</div>
         </div>
         <div class="line-total">${lineTotal} ج.م</div>
         <button type="button" class="remove" data-idx="${idx}">حذف</button>
@@ -815,7 +1096,7 @@ function renderCart(){
 function getSubtotal(){
   return cart.reduce((sum, item) => {
     const p = getProduct(item.id);
-    return sum + unitPriceFor(p, item.qty) * item.qty;
+    return sum + unitPriceFor(p, item.weight) * item.qty;
   }, 0);
 }
 
@@ -828,9 +1109,13 @@ function getShipping(){
 function updateSummary(){
   const subtotal = getSubtotal();
   const govName = document.getElementById('custGov').value;
-  const shipping = govName ? getShipping() : 0;
+  let shipping = govName ? getShipping() : 0;
+  const freeDelivery = subtotal >= 400;
+  if (freeDelivery) shipping = 0;
   document.getElementById('sumSubtotal').textContent = subtotal + ' ج.م';
-  document.getElementById('sumShipping').textContent = govName ? (shipping + ' ج.م') : '— اختر المحافظة';
+  document.getElementById('sumShipping').textContent = govName
+    ? (freeDelivery ? 'مجاني ✅' : (shipping + ' ج.م'))
+    : '— اختر المحافظة';
   document.getElementById('sumTotal').textContent = (subtotal + shipping) + ' ج.م';
 }
 
@@ -905,8 +1190,9 @@ document.getElementById('submitOrderBtn').addEventListener('click', async () => 
 
   const items = cart.map(item => {
     const p = getProduct(item.id);
-    const unit = unitPriceFor(p, item.qty);
-    return { name: p.name, qty: item.qty, unitPrice: unit, lineTotal: unit * item.qty };
+    const unit = unitPriceFor(p, item.weight);
+    const wLabel = item.weight >= 1000 ? 'كيلو' : (item.weight + ' جم');
+    return { name: `${p.name} (${wLabel})`, weight: wLabel, qty: item.qty, unitPrice: unit, lineTotal: unit * item.qty };
   });
 
   const payload = {
@@ -961,6 +1247,28 @@ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   navLinks.classList.remove('open');
   siteHeader.classList.remove('menu-open');
 }));
+
+/* ---------- search filter ---------- */
+const searchInput = document.getElementById('productSearch');
+searchInput.addEventListener('input', (e) => {
+  searchTerm = e.target.value;
+  renderProductPills();
+});
+
+/* ---------- light / dark theme toggle ---------- */
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('sb-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('sb-theme', 'dark');
+    }
+  });
+}
 
 /* ---------- init ---------- */
 renderCatTabs();
