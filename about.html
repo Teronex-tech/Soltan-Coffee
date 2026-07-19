@@ -8,15 +8,46 @@
 <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
 <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
 <link rel="icon" href="https://raw.githubusercontent.com/Teronex-tech/Soltan-Coffee/main/logo.jpg">
+<script>(function(){try{var t=localStorage.getItem('sb-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <style>
 /* ===========================================================
    سلطان البن — Sultan Al-Bun
    Design tokens: void black / royal gold / bronze / ivory
 =========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&display=swap');
 
 :root{
+  --void:        #f6efe2;
+  --espresso:    #efe4d0;
+  --espresso-2:  #e7d8bf;
+  --card:        #fffaf0;
+  --gold:        #b9882f;
+  --gold-bright: #8a6212;
+  --gold-dim:    #9c7838;
+  --bronze-line: rgba(138,98,18,0.28);
+  --ivory:       #2a1d0d;
+  --parchment:   #4a3a23;
+  --parchment-dim: #6f5b3e;
+  --header-bg:   rgba(246,239,226,.92);
+  --header-bg-solid: rgb(246,239,226);
+  --mobile-nav-bg: #fffaf0;
+  --card-hover:  #fff6e6;
+  --img-filter:  brightness(1.02) contrast(1.02) saturate(1.05);
+  --vignette:    rgba(0,0,0,0);
+  --showcase-full-bg: radial-gradient(ellipse at 50% 50%, #f3e4c8, #efe4d0);
+  --machine-bg:  radial-gradient(ellipse at 50% 50%, #f3e4c8, #efe4d0);
+  --teronex-bg:  linear-gradient(135deg, #fff6e6, #f3e4c8);
+  --cta-bg:      linear-gradient(135deg, #fff6e6, #f3e4c8);
+  --cta-after:   linear-gradient(135deg, #fff6e6, #f3e4c8);
+  --pills-note-bg: rgba(217,172,84,.08);
+
+  --radius: 2px;
+  --ease: cubic-bezier(.22,.85,.32,1);
+  --container: 1240px;
+}
+
+html[data-theme="dark"]{
   --void:        #170f09;
   --espresso:    #241809;
   --espresso-2:  #2c1d0e;
@@ -28,10 +59,18 @@
   --ivory:       #fbf3e3;
   --parchment:   #d3c4a5;
   --parchment-dim: #a9987e;
-
-  --radius: 2px;
-  --ease: cubic-bezier(.22,.85,.32,1);
-  --container: 1240px;
+  --header-bg:   rgba(23,15,9,.88);
+  --header-bg-solid: rgb(23,15,9);
+  --mobile-nav-bg: #1b1108;
+  --card-hover:  #241809;
+  --img-filter:  brightness(1.12) contrast(1.05) saturate(1.08);
+  --vignette:    rgba(0,0,0,0);
+  --showcase-full-bg: radial-gradient(ellipse at 50% 50%, #2c1d0e, #170f09);
+  --machine-bg:  radial-gradient(ellipse at 50% 50%, #2c1d0e, #170f09);
+  --teronex-bg:  linear-gradient(135deg, #1a110c, #2c1d0e);
+  --cta-bg:      linear-gradient(135deg, #291a0c, #241809);
+  --cta-after:   linear-gradient(135deg, #291a0c, #241809);
+  --pills-note-bg: rgba(217,172,84,.08);
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
@@ -45,7 +84,7 @@ body{
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-img{ max-width:100%; display:block; filter:brightness(1.18) contrast(1.04) saturate(1.05); }
+img{ max-width:100%; display:block; filter:var(--img-filter); }
 a{ color:inherit; text-decoration:none; }
 ul{ list-style:none; margin:0; padding:0; }
 
@@ -58,8 +97,8 @@ body::before{
   pointer-events:none;
   z-index:2000;
   background:
-    radial-gradient(ellipse at 50% -10%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 85%),
-    radial-gradient(ellipse at 50% 110%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 85%);
+    radial-gradient(ellipse at 50% -10%, rgba(0,0,0,0) 0%, var(--vignette) 85%),
+    radial-gradient(ellipse at 50% 110%, rgba(0,0,0,0) 0%, var(--vignette) 85%);
   mix-blend-mode:multiply;
 }
 
@@ -77,7 +116,7 @@ body::before{
    Typography
 ----------------------------------------------------------- */
 h1,h2,h3,h4{
-  font-family:'Aref Ruqaa', serif;
+  font-family:'El Messiri', 'Tajawal', sans-serif;
   color:var(--ivory);
   margin:0;
   font-weight:700;
@@ -109,7 +148,7 @@ p{ line-height:1.9; color:var(--parchment); }
 .lead{ font-size:18px; color:var(--parchment); max-width:56ch; }
 
 .gold-text{ color:var(--gold); }
-.serif{ font-family:'Aref Ruqaa', serif; }
+.serif{ font-family:'El Messiri', 'Tajawal', sans-serif; }
 
 /* -----------------------------------------------------------
    Ornament: recurring arch / filigree motifs
@@ -170,7 +209,7 @@ p{ line-height:1.9; color:var(--parchment); }
 }
 .site-header.scrolled{
   padding:12px 0;
-  background:rgba(23,15,9,.88);
+  background:var(--header-bg);
   backdrop-filter:blur(14px);
   border-color:var(--bronze-line);
 }
@@ -179,7 +218,7 @@ p{ line-height:1.9; color:var(--parchment); }
 }
 .brand{
   display:flex; align-items:center; gap:12px;
-  font-family:'Aref Ruqaa',serif; font-size:22px; color:var(--ivory);
+  font-family:'El Messiri','Tajawal',sans-serif; font-size:22px; color:var(--ivory);
 }
 .brand img{ height:38px; width:auto; }
 .nav-links{ display:flex; gap:38px; }
@@ -209,7 +248,7 @@ p{ line-height:1.9; color:var(--parchment); }
 @media (max-width: 900px){
   .nav-links{
     position:fixed; inset:0 0 0 auto; width:78%; max-width:340px;
-    background:#1b1108 !important; opacity:1 !important;
+    background:var(--mobile-nav-bg) !important; opacity:1 !important;
     flex-direction:column; padding:110px 36px 40px;
     transform:translateX(100%); transition:transform .5s var(--ease);
     border-left:1px solid var(--bronze-line);
@@ -222,12 +261,12 @@ p{ line-height:1.9; color:var(--parchment); }
   .nav-cta{ position:relative; z-index:2600; }
   .nav-cta .btn-ghost{ display:none; }
   .site-header:has(.nav-links.open){
-    background:rgb(23,15,9);
+    background:var(--header-bg-solid);
     border-color:var(--bronze-line);
     z-index:2400;
   }
   .site-header.menu-open{
-    background:rgb(23,15,9);
+    background:var(--header-bg-solid);
     border-color:var(--bronze-line);
     z-index:2400;
   }
@@ -263,7 +302,7 @@ p{ line-height:1.9; color:var(--parchment); }
 
 .hero-stats{ display:flex; gap:42px; }
 .hero-stats div{ display:flex; flex-direction:column; gap:4px; }
-.hero-stats strong{ font-family:'Aref Ruqaa',serif; font-size:26px; color:var(--gold-bright); }
+.hero-stats strong{ font-family:'El Messiri','Tajawal',sans-serif; font-size:26px; color:var(--gold-bright); }
 .hero-stats span{ font-size:12.5px; color:var(--parchment-dim); letter-spacing:.05em; }
 
 .hero-visual{
@@ -378,6 +417,7 @@ section{ position:relative; padding:120px 0; }
    Showcase / gallery (uses provided lifestyle photography)
 ----------------------------------------------------------- */
 .showcase{ background:var(--espresso); }
+.showcase-media::after{ background:linear-gradient(0deg, rgba(40,28,12,.35), transparent 45%); }
 .showcase-grid{
   display:grid; grid-template-columns:1.15fr .85fr; gap:26px; align-items:stretch;
 }
@@ -389,14 +429,14 @@ section{ position:relative; padding:120px 0; }
 .showcase-media:hover img{ transform:scale(1.05); }
 .showcase-media::after{
   content:''; position:absolute; inset:0;
-  background:linear-gradient(0deg, rgba(10,7,5,.55), transparent 45%);
+  background:linear-gradient(0deg, rgba(40,28,12,.12), transparent 60%);
 }
 .showcase-col{ display:flex; flex-direction:column; gap:26px; }
 
 .showcase-grid--single{ align-items:center; }
 .showcase-media--full{
   aspect-ratio:3/2;
-  background:radial-gradient(ellipse at 50% 50%, var(--espresso-2), var(--void));
+  background:var(--showcase-full-bg);
   padding:26px;
   display:flex; align-items:center; justify-content:center;
 }
@@ -404,7 +444,7 @@ section{ position:relative; padding:120px 0; }
 .showcase-media--full img{
   width:100%; height:100%;
   object-fit:contain;
-  filter:brightness(1.18) contrast(1.04) saturate(1.05) drop-shadow(0 26px 40px rgba(0,0,0,.55));
+  filter:var(--img-filter) drop-shadow(0 26px 40px rgba(0,0,0,.55));
 }
 .showcase-media--full:hover img{ transform:scale(1.03); }
 
@@ -451,7 +491,7 @@ section{ position:relative; padding:120px 0; }
 ----------------------------------------------------------- */
 .quote-strip{ text-align:center; padding:100px 0; }
 .quote-strip blockquote{
-  font-family:'Aref Ruqaa',serif; font-size:clamp(24px,3vw,36px); color:var(--ivory);
+  font-family:'El Messiri','Tajawal',sans-serif; font-size:clamp(24px,3vw,36px); color:var(--ivory);
   max-width:800px; margin:0 auto 22px; line-height:1.6;
 }
 .quote-strip cite{ font-style:normal; color:var(--gold); font-size:13px; letter-spacing:.1em; }
@@ -460,7 +500,7 @@ section{ position:relative; padding:120px 0; }
    Order / CTA
 ----------------------------------------------------------- */
 .cta{
-  background:var(--card);
+  background:var(--cta-bg);
   border:1px solid var(--bronze-line);
   border-radius:6px;
   padding:70px 60px;
@@ -473,7 +513,7 @@ section{ position:relative; padding:120px 0; }
   animation:spin 8s linear infinite;
   opacity:.5;
 }
-.cta::after{ content:''; position:absolute; inset:1px; background:var(--card); border-radius:6px; }
+.cta::after{ content:''; position:absolute; inset:1px; background:var(--cta-after); border-radius:6px; }
 @keyframes spin{ to{ transform:rotate(360deg); } }
 .cta > *{ position:relative; z-index:2; }
 .cta h3{ font-size:30px; margin-bottom:10px; }
@@ -518,6 +558,69 @@ footer{
 }
 
 /* -----------------------------------------------------------
+   Moving slogan marquee (seamless left-to-right loop)
+----------------------------------------------------------- */
+
+.slogan-strip{
+  background:linear-gradient(135deg, var(--gold), var(--gold-dim));
+  color:#1c1206;
+  overflow:hidden;
+  padding:14px 0;
+  border-top:1px solid var(--bronze-line);
+  border-bottom:1px solid var(--bronze-line);
+  direction: ltr;
+  position: relative;
+  /* منع ظهور أي محتوى خارج الشاشة */
+}
+
+.slogan-track{
+  display:flex;
+  flex-wrap:nowrap;
+  direction:ltr;
+  white-space:nowrap;
+  width:max-content;
+  will-change:transform;
+  /* نبدأ من أقصى اليمين (برا الشاشة) ونروح لليسار */
+  animation: marquee-rtl 30s linear infinite;
+}
+
+.slogan-track span{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-family:'El Messiri','Tajawal',sans-serif;
+  font-weight:700;
+  font-size:1.4rem;
+  padding:0 38px;
+  letter-spacing:.01em;
+}
+
+.slogan-track span::after{
+  content:'✦';
+  margin-inline-start:38px;
+  color:#1c1206;
+  opacity:.6;
+}
+
+/* 
+   نبدأ من 100% (النص كله برا الشاشة على اليمين)
+   ونروح لـ -33.33% (النص يخرج من الشمال)
+   مع 3 نسخ عشان الاستمرارية
+*/
+@keyframes marquee-rtl{
+  0%{
+    transform: translateX(100%);
+  }
+  100%{
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .slogan-track{
+    animation:none;
+  }
+}
+/* -----------------------------------------------------------
    Reveal-on-scroll utility
 ----------------------------------------------------------- */
 .reveal{ opacity:0; transform:translateY(34px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
@@ -537,7 +640,7 @@ footer{
 }
 .page-hero .eyebrow{ justify-content:center; }
 .page-hero .eyebrow::before,.page-hero .eyebrow::after{ display:none; }
-.page-hero h1{ font-size:clamp(38px,5vw,62px); margin-bottom:18px; }
+.page-hero h1{ font-family:'El Messiri','Tajawal',sans-serif; font-weight:700; font-size:clamp(40px,5.4vw,66px); margin-bottom:18px; letter-spacing:.01em; }
 .page-hero p{ max-width:560px; margin:0 auto; }
 
 .machine-feature{
@@ -546,10 +649,10 @@ footer{
 .machine-media{
   position:relative; border-radius:6px; overflow:hidden;
   border:1px solid var(--bronze-line);
-  background:radial-gradient(ellipse at 50% 50%, #2c1d0e, #170f09);
+  background:var(--machine-bg);
   padding:30px;
 }
-.machine-media img{ filter:drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
+.machine-media img{ filter:var(--img-filter) drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
 .machine-copy h2{ font-size:34px; margin-bottom:20px; }
 .spec-list{ margin-top:28px; display:flex; flex-direction:column; gap:0; border-top:1px solid var(--bronze-line); }
 .spec-list li{
@@ -557,7 +660,7 @@ footer{
   border-bottom:1px solid var(--bronze-line); font-size:14px;
 }
 .spec-list li span:first-child{ color:var(--parchment-dim); }
-.spec-list li span:last-child{ color:var(--gold-bright); font-family:'Aref Ruqaa',serif; font-size:16px; }
+.spec-list li span:last-child{ color:var(--gold-bright); font-family:'El Messiri','Tajawal',sans-serif; font-size:16px; }
 
 @media (max-width:900px){
   .machine-feature{ grid-template-columns:1fr; }
@@ -593,7 +696,7 @@ footer{
 .js-node svg{ width:34px; height:34px; stroke:var(--gold); fill:none; stroke-width:1.3; }
 .js-node .js-index{
   position:absolute; top:-10px; right:-6px;
-  font-family:'Aref Ruqaa',serif; font-size:13px; color:var(--parchment-dim);
+  font-family:'El Messiri','Tajawal',sans-serif; font-size:13px; color:var(--parchment-dim);
 }
 
 .journey-step:nth-child(odd) .js-media{ grid-column:1; text-align:left; }
@@ -622,11 +725,16 @@ footer{
 
 /* Values row on about */
 .values-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--bronze-line); border:1px solid var(--bronze-line); }
-.value-card{ background:var(--void); padding:46px 32px; text-align:center; }
-.value-card .num{ font-family:'Aref Ruqaa',serif; color:var(--gold-dim); font-size:14px; margin-bottom:16px; letter-spacing:.1em; }
-.value-card h4{ font-size:19px; margin-bottom:12px; }
-.value-card p{ font-size:14px; color:var(--parchment-dim); }
-@media (max-width:760px){ .values-row{ grid-template-columns:1fr; } }
+.value-card{ background:var(--card); padding:64px 40px; text-align:center; }
+.value-card .num{ font-family:'El Messiri','Tajawal',sans-serif; color:var(--gold-dim); font-size:18px; margin-bottom:20px; letter-spacing:.1em; }
+.value-card h4{ font-size:30px; margin-bottom:18px; }
+.value-card p{ font-size:18px; line-height:1.9; color:var(--parchment); }
+@media (max-width:760px){
+  .values-row{ grid-template-columns:1fr; }
+  .value-card{ padding:44px 26px; }
+  .value-card h4{ font-size:26px; }
+  .value-card p{ font-size:16px; }
+}
 
 
 /* ===========================================================
@@ -639,7 +747,7 @@ footer{
   justify-content: center;
   position: relative;
   padding: 8px 20px 8px 16px;
-  background: linear-gradient(135deg, #1a110c, #2c1d0e);
+  background: var(--teronex-bg);
   border: 1px solid var(--gold-dim);
   border-radius: 0; /* بدون حواف مستديرة */
   color: var(--gold-bright);
@@ -766,6 +874,39 @@ footer{
 }
 
 /* -----------------------------------------------------------
+   Theme toggle (light / dark)
+----------------------------------------------------------- */
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--bronze-line);
+  background:transparent; cursor:pointer;
+  font-size:17px; line-height:1;
+  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+  flex:none;
+}
+.theme-toggle:hover{ border-color:var(--gold); background:rgba(201,162,75,.1); transform:translateY(-2px); }
+.theme-toggle .theme-icon-dark{ display:none; }
+html[data-theme="dark"] .theme-toggle .theme-icon-light{ display:none; }
+html[data-theme="dark"] .theme-toggle .theme-icon-dark{ display:inline; }
+
+/* -----------------------------------------------------------
+   WhatsApp floating complaints button
+----------------------------------------------------------- */
+.wa-float{
+  position:fixed; bottom:24px; left:24px; z-index:1500;
+  display:inline-flex; align-items:center; gap:10px;
+  background:#25D366; color:#fff;
+  font-family:'Tajawal',sans-serif; font-weight:700; font-size:14px;
+  padding:13px 20px; border-radius:999px;
+  box-shadow:0 10px 30px -8px rgba(37,211,102,.6);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.wa-float:hover{ transform:translateY(-3px); box-shadow:0 16px 40px -8px rgba(37,211,102,.8); }
+.wa-float svg{ width:22px; height:22px; }
+@media (max-width:640px){ .wa-float{ bottom:16px; left:16px; padding:11px 16px; font-size:13px; } }
+
+/* -----------------------------------------------------------
    Mobile improvements — larger text, better spacing
 ----------------------------------------------------------- */
 @media (max-width:640px){
@@ -805,6 +946,10 @@ footer{
       <a href="booking.html">احجز عن طريق الموقع</a>
     </nav>
     <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي/النهاري" title="الوضع الليلي/النهاري">
+        <span class="theme-icon theme-icon-light">🌙</span>
+        <span class="theme-icon theme-icon-dark">☀️</span>
+      </button>
       <a href="index.html#order" class="btn btn-ghost">تواصل معنا</a>
       <button class="nav-toggle" id="navToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
     </div>
@@ -820,6 +965,15 @@ footer{
     <p class="reveal reveal-delay-1">كل كيس من سلطان البن يحمل رحلة كاملة: أرضٌ صبورة، أيادٍ ماهرة، وآلة تحميص دقيقة تحوّل الحبة الخام إلى تجربة استثنائية.</p>
   </div>
 </section>
+
+<!-- ===================== MOVING SLOGAN ===================== -->
+<div class="slogan-strip" aria-hidden="true">
+  <div class="slogan-track">
+    <span dir="rtl">سلطان البن — حبوب بن طبيعية بدون أي إضافات وبدون أي منكهات أو أي مخلوطات</span>
+    <span dir="rtl">سلطان البن — حبوب بن طبيعية بدون أي إضافات وبدون أي منكهات أو أي مخلوطات</span>
+    <span dir="rtl">سلطان البن — حبوب بن طبيعية بدون أي إضافات وبدون أي منكهات أو أي مخلوطات</span>
+  </div>
+</div>
 
 <!-- ===================== MACHINE FEATURE ===================== -->
 <section id="machine">
@@ -975,6 +1129,12 @@ footer{
   </div>
 </section>
 
+<!-- ===================== WHATSAPP COMPLAINTS ===================== -->
+<a href="https://wa.me/201555115722?text=%D8%B3%D9%84%D8%A7%D9%85%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%B3%D9%84%D8%B7%D8%A7%D9%86%20%D8%A7%D9%84%D8%A8%D9%86%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D9%82%D8%AF%D9%8A%D9%85%20%D8%B4%D9%83%D9%88%D9%89" target="_blank" rel="noopener" class="wa-float" aria-label="شكاوى عبر واتساب">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.8c2.16 0 4.19.84 5.72 2.37a8.06 8.06 0 012.37 5.74c0 4.47-3.64 8.11-8.11 8.11a8.1 8.1 0 01-4.13-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.05 8.05 0 01-1.24-4.27c0-4.47 3.64-8.11 8.18-8.11zm-4.4 3.4c-.2 0-.5.07-.76.36-.27.29-1.03 1.01-1.03 2.46s1.06 2.85 1.21 3.05c.15.2 2.09 3.2 5.08 4.39 2.39 1.04 2.88.83 3.4.78.52-.05 1.69-.69 1.93-1.36.24-.67.24-1.24.17-1.36-.07-.12-.27-.19-.57-.33-.3-.15-1.69-.83-1.95-.93-.26-.09-.45-.14-.64.14-.19.29-.73.93-.9 1.12-.16.19-.33.22-.62.07-.29-.15-1.22-.45-2.32-1.43-.86-.76-1.44-1.7-1.61-1.99-.17-.29-.02-.45.12-.59.13-.13.29-.34.43-.5.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.5-.07-.15-.64-1.54-.88-2.11-.23-.56-.46-.48-.64-.49-.16-.01-.36-.01-.56-.01z"/></svg>
+  شكاوى
+</a>
+
 <!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="container">
@@ -1124,6 +1284,21 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.animation = 'none';
     });
     revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---------- light / dark theme toggle ---------- */
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('sb-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('sb-theme', 'dark');
+      }
+    });
   }
 
 });
