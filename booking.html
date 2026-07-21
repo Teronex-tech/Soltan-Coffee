@@ -739,10 +739,14 @@ html[data-theme="dark"] .theme-toggle .theme-icon-dark{ display:inline; }
             <div class="ptitle"><input type="radio" name="pmethod" value="وي باي"> وي باي (WE Pay)</div>
             <div class="pnum">01555115722</div>
           </label>
+          <label class="payment-option" data-method="الدفع عند الاستلام" id="codOption" style="display:none;">
+            <div class="ptitle"><input type="radio" name="pmethod" value="الدفع عند الاستلام"> الدفع عند الاستلام (Cash on Delivery)</div>
+            <div class="pnum" style="font-size:13px; color:var(--parchment-dim); direction:rtl; text-align:right;">تدفع نقدًا للمندوب عند وصول الطلب</div>
+          </label>
         </div>
-        <p class="hint">حوّل المبلغ الإجمالي على الرقم الظاهر أعلاه حسب طريقة الدفع المختارة، ثم ارفع صورة إثبات التحويل.</p>
+        <p class="hint" id="paymentHint">حوّل المبلغ الإجمالي على الرقم الظاهر أعلاه حسب طريقة الدفع المختارة، ثم ارفع صورة إثبات التحويل.</p>
 
-        <label class="upload-box" for="proofInput" style="display:block; margin-top:14px;">
+        <label class="upload-box" for="proofInput" id="proofBox" style="display:block; margin-top:14px;">
           <span id="uploadLabel">📎 اضغط هنا لرفع صورة إثبات الدفع</span>
           <input type="file" id="proofInput" accept="image/*">
           <div class="upload-preview" id="uploadPreviewWrap" style="display:none;"><img id="uploadPreview"></div>
@@ -1129,8 +1133,39 @@ function renderGovSelect(){
     document.getElementById('shippingHint').textContent = sel.value
       ? `تكلفة الشحن إلى ${sel.value}: ${shipping} ج.م`
       : '';
+    updateCodVisibility();
     updateSummary();
   });
+}
+
+/* ---------- COD (cash on delivery) visibility — بورسعيد وبورفؤاد فقط ---------- */
+function updateCodVisibility(){
+  const gov = document.getElementById('custGov').value;
+  const codOption = document.getElementById('codOption');
+  const codAllowed = (gov === 'بورسعيد' || gov === 'بورفؤاد');
+
+  codOption.style.display = codAllowed ? 'block' : 'none';
+
+  /* لو العميل كان مختار الدفع عند الاستلام وبدّل المحافظة لمكان تاني، نلغي الاختيار */
+  if (!codAllowed && selectedPaymentMethod === 'الدفع عند الاستلام'){
+    selectedPaymentMethod = '';
+    codOption.classList.remove('selected');
+    const radio = codOption.querySelector('input[type=radio]');
+    if (radio) radio.checked = false;
+  }
+
+  toggleProofRequirement();
+}
+
+/* ---------- إخفاء صندوق رفع إثبات الدفع لو الطريقة "دفع عند الاستلام" ---------- */
+function toggleProofRequirement(){
+  const proofBox = document.getElementById('proofBox');
+  const paymentHint = document.getElementById('paymentHint');
+  const isCod = selectedPaymentMethod === 'الدفع عند الاستلام';
+  proofBox.style.display = isCod ? 'none' : 'block';
+  paymentHint.textContent = isCod
+    ? 'هيتم تحصيل قيمة الطلب نقدًا من المندوب عند التسليم.'
+    : 'حوّل المبلغ الإجمالي على الرقم الظاهر أعلاه حسب طريقة الدفع المختارة، ثم ارفع صورة إثبات التحويل.';
 }
 
 /* ---------- payment method ---------- */
@@ -1140,6 +1175,7 @@ document.querySelectorAll('.payment-option').forEach(opt => {
     opt.classList.add('selected');
     opt.querySelector('input[type=radio]').checked = true;
     selectedPaymentMethod = opt.dataset.method;
+    toggleProofRequirement();
   });
 });
 
@@ -1178,7 +1214,9 @@ document.getElementById('submitOrderBtn').addEventListener('click', async () => 
   if (!gov) return showStatus('من فضلك اختر المحافظة.', false);
   if (!address) return showStatus('من فضلك اكتب العنوان بالتفصيل.', false);
   if (!selectedPaymentMethod) return showStatus('من فضلك اختر طريقة الدفع.', false);
-  if (!paymentProofBase64) return showStatus('من فضلك ارفع صورة إثبات الدفع.', false);
+  if (selectedPaymentMethod !== 'الدفع عند الاستلام' && !paymentProofBase64){
+    return showStatus('من فضلك ارفع صورة إثبات الدفع.', false);
+  }
 
   if (SCRIPT_URL.indexOf('PASTE_YOUR') === 0){
     return showStatus('⚠ لم يتم ربط الموقع بجوجل شيت بعد. راجع ملف google-apps-script.gs لتفعيل الحجز.', false);
